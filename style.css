@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -11,74 +14,98 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background-color: #0b0e1a; /* Backup background color */
+    background-color: #0b0e1a; /* Dark sky backup fill color */
 }
 
-/* Master background container */
+/* ==========================================================================
+   2. LAYERED BACKGROUND SCENERY
+   ========================================================================== */
 .scenery-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -1; /* Pushes the entire artwork window behind the text layers */
 }
 
-/* Forces your video (Stars + Moon) to stretch beautifully across the screen */
+/* Video Layer (Back) */
 .video-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Stretches video evenly across any screen size */
     z-index: 0;
 }
 
-/* Transparent Mountain Overlay locked at the bottom front */
+/* Mountain Image Layer (Front) */
 .mountains-layer {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: auto;
-    min-height: 40%;             
+    min-height: 40%; /* Prevents transparent cutout from shrinking too small on PC displays */
     object-fit: cover;
-    z-index: 2; /* Puts your mountain cutouts right in front of the video */
+    z-index: 2; /* Forces mountains to clip visually in front of your spinning moon */
 }
 
-/* --- Navigation & Typography Layout --- */
+/* ==========================================================================
+   3. NAVIGATION BAR HEADER
+   ========================================================================== */
 .navbar {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Keeps navigation clickable and in front of everything */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 40px 80px; 
 }
 
-.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+.logo { 
+    font-size: 24px; 
+    font-weight: bold; 
+    letter-spacing: 1px; 
+}
 
 .navbar nav a {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     margin-left: 40px;
     font-size: 18px;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
-.navbar nav a:hover, .navbar nav a.active { color: #ffffff; }
+.navbar nav a:hover, 
+.navbar nav a.active { 
+    color: #ffffff; 
+}
 
+/* ==========================================================================
+   4. MAIN FOREGROUND CONTENT
+   ========================================================================== */
 .welcome-container {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Keeps paragraph text in front of everything */
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
-    margin-top: -40px;  
+    margin-top: -40px; /* Slight visual offset to balance screen weight */
 }
 
-.welcome-container h1 { font-size: 90px; font-weight: 800; letter-spacing: 2px; }
-.welcome-container .subtext { font-size: 16px; line-height: 1.6; max-width: 500px; color: rgba(255, 255, 255, 0.8); }
+.welcome-container h1 { 
+    font-size: 90px; 
+    font-weight: 800; 
+    letter-spacing: 2px; 
+}
+
+.welcome-container .subtext { 
+    font-size: 16px; 
+    line-height: 1.6; 
+    max-width: 500px; 
+    color: rgba(255, 255, 255, 0.8); 
+}
