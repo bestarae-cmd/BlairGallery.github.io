@@ -190,10 +190,18 @@ body {
         text-align: center;
     }
 
-    .text-blur-wrapper {
-        max-width: 100%;
-        box-shadow: 0 0 30px 25px rgba(0, 0, 0, 0.5);
-    }
+  /* Smooth, circular atmospheric mist behind text for elite readability */
+.text-blur-wrapper {
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker center for text contrast */
+    border-radius: 50%;            /* Forces the box shape into a perfect circle */
+    
+    /* The magic blend: 0px offset, 80px blur softness, 60px wide spread radius */
+    box-shadow: 0 0 80px 60px rgba(0, 0, 0, 0.6); 
+    
+    padding: 40px;                 /* Extra inner breathing room for the circular shape */
+    display: inline-block;
+    max-width: 540px;
+}
 
     .welcome-container h1 {
         font-size: 50px;
