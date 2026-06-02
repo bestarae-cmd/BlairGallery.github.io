@@ -137,7 +137,6 @@ body {
         width: 100% !important;
     }
 
-    /* Fixed, easily-clickable hamburger button area */
     .hamburger-btn {
         display: flex !important;
         flex-direction: column !important;
@@ -157,7 +156,6 @@ body {
         transition: all 0.3s ease !important;
     }
 
-    /* Fixed mobile overlay drawer */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -185,7 +183,6 @@ body {
         right: 0 !important;
     }
 
-    /* Hamburger line animation tricks */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(8px) rotate(45deg) !important;
     }
@@ -196,16 +193,17 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* FORCED TEXT CENTERING RULES */
+    /* PUSHES CONTENT HIGHER ON MOBILE */
     .welcome-container {
-        padding-left: 0 !important; /* Erases the 80px desktop left alignment gap */
+        padding-left: 0 !important;
         padding: 0 24px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important; /* Physically forces items to center on phone */
-        text-align: center !important;   /* Centers text characters inside sentences */
+        justify-content: flex-start !important; /* Forces layout to start from top instead of middle */
+        align-items: center !important;
+        text-align: center !important;
         width: 100% !important;
+        margin-top: 40px !important;           /* Creates breathing room under the navbar links */
     }
 
     .text-blur-wrapper {
@@ -217,11 +215,10 @@ body {
         justify-content: center !important;
     }
 
-    /* Shrinks down headings perfectly so they can't stick out past phone walls */
     .welcome-container h1 {
         font-size: 42px !important; 
         letter-spacing: 1px !important;
-        margin-bottom: 15px !important;
+        margin-bottom: 12px !important;
         text-align: center !important;
         width: 100% !important;
     }
@@ -230,6 +227,6 @@ body {
         font-size: 13px !important;
         line-height: 1.5 !important;
         text-align: center !important;
-        max-width: 290px !important; /* Wraps sentences comfortably inside phone viewports */
+        max-width: 290px !important;
     }
 }
