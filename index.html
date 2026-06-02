@@ -8,10 +8,16 @@
 </head>
 <body>
 
-    <!-- The Layered Background Container -->
+    <!-- Background Scenery Container -->
     <div class="scenery-container">
-        <div class="sky-background"></div>
+        <!-- The video handles the twinkling stars -->
+        <video class="video-background" autoplay loop muted playsinline>
+            <source src="background.webm" type="video/webm">
+        </video>
+        
+        <!-- The visual Moon -->
         <div class="moon"></div>
+        
         <!-- Your transparent mountains layer -->
         <img src="mountains.png" class="mountains-layer" alt="Mountains">
     </div>
