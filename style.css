@@ -34,11 +34,12 @@ body {
     object-fit: cover;
 }
 
-/* CSS Moon */
+/* CSS Moon - Locked perfectly in the center */
 .moon {
     position: absolute;
     bottom: 15%;
-    left: 40%;
+    left: 50%;                 /* Moves the left edge of the moon to the exact middle of the screen */
+    transform: translateX(-50%); /* Pulls the moon back by half its own width so it centers perfectly */
     width: 220px;
     height: 220px;
     background: #ffffff;
@@ -46,7 +47,6 @@ body {
     box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
     z-index: 1;
 }
-
 /* Transparent Mountain Overlay */
 .mountains-layer {
     position: absolute;
