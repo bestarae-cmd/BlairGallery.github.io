@@ -88,7 +88,7 @@ body {
    ========================================================================== */
 .welcome-container {
     position: relative;
-    z-index: 5; /* Lowered slightly so navigation always wins the overlay fight */
+    z-index: 5;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -137,7 +137,16 @@ body {
         width: 100% !important;
     }
 
-    /* Fixed hamburger icon layout button zone */
+    /* Target background layers to shrink the moon and mountains on phones */
+    .video-background,
+    .mountains-layer {
+        object-fit: contain !important;       /* Fits graphics into frame width to prevent giant zoom-in */
+        top: auto !important;
+        bottom: 0 !important;                /* Anchors artwork neatly to the bottom of your phone screen */
+        height: 65vh !important;              /* Keeps the layout height constrained to 65% of screen height */
+        width: 100% !important;
+    }
+
     .hamburger-btn {
         display: flex !important;
         flex-direction: column !important;
@@ -145,7 +154,7 @@ body {
         width: 32px !important;
         height: 20px !important;
         cursor: pointer !important;
-        z-index: 1000 !important; /* Set to absolute top layer so it stays interactive */
+        z-index: 1000 !important;
     }
 
     .hamburger-btn span {
@@ -157,7 +166,6 @@ body {
         transition: all 0.3s ease !important;
     }
 
-    /* FIX: Set z-index to 999 so it completely covers the text and background */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -172,7 +180,7 @@ body {
         justify-content: center !important;
         align-items: center !important;
         transition: right 0.4s ease !important;
-        z-index: 999 !important; /* Forces the entire mobile menu to sit ABOVE everything else */
+        z-index: 999 !important;
     }
 
     .nav-menu a {
@@ -185,7 +193,6 @@ body {
         right: 0 !important;
     }
 
-    /* Hamburger morph animations */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(8px) rotate(45deg) !important;
     }
@@ -196,7 +203,7 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* Text core positioning rules */
+    /* Content placement adjusted for the smaller background layout */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -206,8 +213,8 @@ body {
         align-items: center !important;
         text-align: center !important;
         width: 100% !important;
-        margin-top: 60px !important; 
-        z-index: 1 !important; /* Low layer number ensures it gracefully slips under the open menu */
+        margin-top: 50px !important; 
+        z-index: 1 !important;
     }
 
     .text-blur-wrapper {
