@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. GLOBAL RESET & BASE STYLES
-   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -14,11 +11,11 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background-color: #0b0e1a; /* Dark sky backup fill color */
+    background-color: #0b0e1a;
 }
 
 /* ==========================================================================
-   2. LAYERED BACKGROUND SCENERY (LOCKED TOGETHER AS ONE UNIT)
+   BACKGROUND SCENERY
    ========================================================================== */
 .scenery-container {
     position: fixed;
@@ -30,7 +27,6 @@ body {
     overflow: hidden;
 }
 
-/* Both the video and the image share this identical frame size */
 .video-background,
 .mountains-layer {
     position: absolute;
@@ -38,26 +34,24 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;    /* Forces both files to scale identically to fill the screen */
+    object-fit: cover;
     pointer-events: none;
 }
 
-/* Video Layer sits in the back of this frame */
 .video-background {
     z-index: 0;
 }
 
-/* Mountains Layer sits precisely on top of the video within the same frame */
 .mountains-layer {
     z-index: 2;
 }
 
 /* ==========================================================================
-   3. NAVIGATION BAR HEADER (COMPUTERS)
+   DESKTOP NAVIGATION (COMPUTERS)
    ========================================================================== */
 .navbar {
     position: relative;
-    z-index: 10; /* Keeps navigation clickable and in front of everything */
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -70,13 +64,11 @@ body {
     letter-spacing: 1px; 
 }
 
-/* Hides mobile navigation selectors on standard computers */
 .menu-checkbox, .hamburger-btn {
     display: none;
 }
 
-/* Target desktop link container safely */
-.nav-menu a, .navbar nav a {
+.nav-menu a {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     margin-left: 40px;
@@ -84,29 +76,27 @@ body {
     transition: color 0.3s ease;
 }
 
-.nav-menu a:hover, .navbar nav a:hover,
-.nav-menu a.active, .navbar nav a.active { 
+.nav-menu a:hover, .nav-menu a.active { 
     color: #ffffff; 
 }
 
 /* ==========================================================================
-   4. MAIN FOREGROUND CONTENT (COMPUTERS)
+   DESKTOP CONTENT (COMPUTERS)
    ========================================================================== */
 .welcome-container {
     position: relative;
-    z-index: 10; /* Keeps paragraph text in front of everything */
+    z-index: 10;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
-    margin-top: -40px; /* Slight visual offset to balance screen weight */
+    margin-top: -40px;
 }
 
-/* Dark faded shadow block behind text to ensure elite readability */
 .text-blur-wrapper {
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 40px 35px rgba(0, 0, 0, 0.4); /* Fades gently into the background video */
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 40px 35px rgba(0, 0, 0, 0.5);
     padding: 15px;
     border-radius: 12px;
     display: inline-block;
@@ -126,20 +116,20 @@ body {
 }
 
 /* ==========================================================================
-   5. MOBILE PORTRAIT RESPONSIVE BREAKPOINT (< 768px)
+   MOBILE RESPONSIVE LAYOUT (< 768px)
    ========================================================================== */
 @media (max-width: 768px) {
     .navbar {
-        padding: 30px 24px;
+        padding: 24px;
     }
 
-    /* Shows and shapes the mobile hamburger bar buttons */
+    /* Reveal mobile hamburger menu */
     .hamburger-btn {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        height: 20px;
+        width: 28px;
+        height: 18px;
         cursor: pointer;
         z-index: 100;
     }
@@ -153,47 +143,47 @@ body {
         transition: all 0.3s ease;
     }
 
-    /* Builds the slide-out menu drawer backdrop */
+    /* Transform menu links to hide off-screen */
     .nav-menu {
         position: fixed;
         top: 0;
-        right: -100%; /* Keeps off-screen until tapped */
+        right: -100%; 
         width: 75%;
         height: 100vh;
-        background: rgba(11, 14, 26, 0.96);
+        background: rgba(11, 14, 26, 0.98);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: right 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+        transition: right 0.4s ease;
         z-index: 90;
     }
 
     .nav-menu a {
-        margin: 22px 0;
+        margin: 20px 0;
         font-size: 24px;
-        margin-left: 0; /* Clears desktop alignment side padding */
+        margin-left: 0;
     }
 
-    /* Action: Slides menu drawer visually onto the mobile device view */
+    /* Slide open logic */
     .menu-checkbox:checked ~ .nav-menu {
         right: 0;
     }
 
-    /* Action: Rotates the simple lines into a smooth closing 'X' graphic */
+    /* Animate hamburger to X */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
     }
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
         opacity: 0;
     }
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* Restructures welcome layout center lines for portrait phone views */
+    /* Center-align layout for small mobile screens */
     .welcome-container {
         padding: 0 24px;
         align-items: center;
@@ -202,16 +192,16 @@ body {
 
     .text-blur-wrapper {
         max-width: 100%;
-        box-shadow: 0 0 30px 25px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 0 30px 25px rgba(0, 0, 0, 0.5);
     }
 
     .welcome-container h1 {
-        font-size: 56px; /* Scaled down perfectly so it doesn't break boundaries on small glass */
-        letter-spacing: 3px;
-        margin-bottom: 12px;
+        font-size: 50px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
     }
 
     .welcome-container .subtext {
-        font-size: 15px;
+        font-size: 14px;
     }
 }
