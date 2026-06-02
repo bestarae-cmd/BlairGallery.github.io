@@ -18,26 +18,26 @@ body {
 }
 
 /* ==========================================================================
-   2. BACKGROUND SCENERY
+   2. BACKGROUND SCENERY (FORCED FULL SCREEN COVER)
    ========================================================================== */
 .scenery-container {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw !important;
+    height: 100vh !important;
     z-index: -1;
     overflow: hidden;
 }
 
 .video-background,
 .mountains-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Restored back to the full-screen zoom look you preferred */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* This strictly forces it to fill the entire mobile display */
     pointer-events: none;
 }
 
@@ -137,6 +137,16 @@ body {
         width: 100% !important;
     }
 
+    /* Makes sure the scenery stays 100% full height and cover layout */
+    .video-background,
+    .mountains-layer {
+        object-fit: cover !important; 
+        width: 100% !important;
+        height: 100% !important;
+        top: 0 !important;
+        bottom: auto !important;
+    }
+
     .hamburger-btn {
         display: flex !important;
         flex-direction: column !important;
@@ -156,7 +166,7 @@ body {
         transition: all 0.3s ease !important;
     }
 
-    /* Fixed layer priority: Slids over everything cleanly */
+    /* Slides completely over the top layer */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -194,7 +204,7 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* New, cleaner mobile frame alignment */
+    /* Sets the welcome wrapper high in the night sky */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -204,7 +214,7 @@ body {
         align-items: center !important;
         text-align: center !important;
         width: 100% !important;
-        margin-top: 15vh !important; /* Uses viewport height to push the text beautifully into the upper sky layer */
+        margin-top: 12vh !important; 
         z-index: 1 !important; 
     }
 
