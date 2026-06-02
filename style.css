@@ -13,12 +13,12 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden; /* Prevents the screen from shaking or scrolling sideways */
+    overflow-x: hidden;
     background-color: #0b0e1a;
 }
 
 /* ==========================================================================
-   2. BACKGROUND SCENERY (FIXED TO AUTO-SCALE)
+   2. BACKGROUND SCENERY
    ========================================================================== */
 .scenery-container {
     position: fixed;
@@ -37,7 +37,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Keeps it perfectly filled without stretching */
+    object-fit: cover;
     pointer-events: none;
 }
 
@@ -128,94 +128,108 @@ body {
 /* ==========================================================================
    5. MOBILE RESPONSIVE LAYOUT (< 768px)
    ========================================================================== */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .navbar {
-        padding: 24px;
-        width: 100%;
+        padding: 24px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
     }
 
-    /* Enlarged and padded click zone for the mobile hamburger button */
+    /* Fixed, easily-clickable hamburger button area */
     .hamburger-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 35px;   /* Made slightly wider */
-        height: 22px;  /* Made slightly taller */
-        cursor: pointer;
-        z-index: 100;
-        padding: 5px;  /* Invisible spacing padding makes it much easier to hit with a thumb */
-        box-sizing: content-box; 
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 32px !important;
+        height: 20px !important;
+        cursor: pointer !important;
+        z-index: 100 !important;
     }
 
     .hamburger-btn span {
-        display: block;
-        width: 100%;
-        height: 3px;
-        background-color: white;
-        border-radius: 2px;
-        transition: all 0.3s ease;
+        display: block !important;
+        width: 100% !important;
+        height: 3px !important;
+        background-color: white !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
     }
 
-    /* Fixed mobile drawer alignment */
+    /* Fixed mobile overlay drawer */
     .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%; 
-        width: 75%;
-        height: 100vh;
-        background: rgba(11, 14, 26, 0.98);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.4s ease;
-        z-index: 90;
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important; 
+        width: 75% !important;
+        height: 100vh !important;
+        background: rgba(11, 14, 26, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        transition: right 0.4s ease !important;
+        z-index: 90 !important;
     }
 
     .nav-menu a {
-        margin: 20px 0;
-        font-size: 24px;
-        margin-left: 0;
+        margin: 20px 0 !important;
+        font-size: 24px !important;
+        margin-left: 0 !important;
     }
 
     .menu-checkbox:checked ~ .nav-menu {
-        right: 0;
+        right: 0 !important;
     }
 
-    /* Clean transition transformations into X */
+    /* Hamburger line animation tricks */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg) !important;
     }
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
-        opacity: 0;
+        opacity: 0 !important;
     }
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
-        transform: translateY(-10px) rotate(-45deg);
+        transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* Mobile Text Layout Reset */
+    /* FORCED TEXT CENTERING RULES */
     .welcome-container {
-        padding: 0 20px;
-        align-items: center;
-        text-align: center;
+        padding-left: 0 !important; /* Erases the 80px desktop left alignment gap */
+        padding: 0 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important; /* Physically forces items to center on phone */
+        text-align: center !important;   /* Centers text characters inside sentences */
+        width: 100% !important;
     }
 
     .text-blur-wrapper {
-        max-width: 100%;
-        padding: 40px 20px; 
+        max-width: 100% !important;
+        padding: 40px 20px !important; 
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
-    /* Shrinks the gigantic desktop font down so it fits a mobile frame beautifully */
+    /* Shrinks down headings perfectly so they can't stick out past phone walls */
     .welcome-container h1 {
-        font-size: 42px; 
-        letter-spacing: 1px;
-        margin-bottom: 15px;
+        font-size: 42px !important; 
+        letter-spacing: 1px !important;
+        margin-bottom: 15px !important;
+        text-align: center !important;
+        width: 100% !important;
     }
 
     .welcome-container .subtext {
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+        text-align: center !important;
+        max-width: 290px !important; /* Wraps sentences comfortably inside phone viewports */
     }
 }
