@@ -37,8 +37,8 @@ body {
 /* CSS Moon - Locked perfectly in the center */
 .moon {
     position: absolute;
-    bottom: 30%;
-    left: 50%;                 /* Moves the left edge of the moon to the exact middle of the screen */
+    bottom: 15%;
+    left: 40%;                 /* Moves the left edge of the moon to the exact middle of the screen */
     transform: translateX(-50%); /* Pulls the moon back by half its own width so it centers perfectly */
     width: 220px;
     height: 220px;
