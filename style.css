@@ -88,7 +88,7 @@ body {
    ========================================================================== */
 .welcome-container {
     position: relative;
-    z-index: 10;
+    z-index: 5; /* Lowered slightly so navigation always wins the overlay fight */
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -137,7 +137,7 @@ body {
         width: 100% !important;
     }
 
-    /* Fixed, easily-clickable hamburger button area */
+    /* Fixed hamburger icon layout button zone */
     .hamburger-btn {
         display: flex !important;
         flex-direction: column !important;
@@ -145,7 +145,7 @@ body {
         width: 32px !important;
         height: 20px !important;
         cursor: pointer !important;
-        z-index: 100 !important;
+        z-index: 1000 !important; /* Set to absolute top layer so it stays interactive */
     }
 
     .hamburger-btn span {
@@ -157,7 +157,7 @@ body {
         transition: all 0.3s ease !important;
     }
 
-    /* Drawer overlay styling */
+    /* FIX: Set z-index to 999 so it completely covers the text and background */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -172,7 +172,7 @@ body {
         justify-content: center !important;
         align-items: center !important;
         transition: right 0.4s ease !important;
-        z-index: 90 !important;
+        z-index: 999 !important; /* Forces the entire mobile menu to sit ABOVE everything else */
     }
 
     .nav-menu a {
@@ -185,7 +185,7 @@ body {
         right: 0 !important;
     }
 
-    /* Clean transition transformations into X */
+    /* Hamburger morph animations */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(8px) rotate(45deg) !important;
     }
@@ -196,7 +196,7 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* COPIED FROM DESIGN IN IMAGE: Sits text cleanly in the upper sky above the moon */
+    /* Text core positioning rules */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -206,7 +206,8 @@ body {
         align-items: center !important;
         text-align: center !important;
         width: 100% !important;
-        margin-top: 60px !important; /* Adjusts how high the text climbs into the sky */
+        margin-top: 60px !important; 
+        z-index: 1 !important; /* Low layer number ensures it gracefully slips under the open menu */
     }
 
     .text-blur-wrapper {
@@ -216,7 +217,7 @@ body {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        background-image: url('shadow.png') !important; /* Retains your custom image shadow backdrop */
+        background-image: url('shadow.png') !important;
         background-size: 100% 100% !important;
     }
 
