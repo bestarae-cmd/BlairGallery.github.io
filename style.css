@@ -193,7 +193,7 @@ body {
   /* Smooth, circular atmospheric mist behind text for elite readability */
 .text-blur-wrapper {
     background: rgba(0, 0, 0, 0.6); /* Slightly darker center for text contrast */
-    border-radius: 100%;            /* Forces the box shape into a perfect circle */
+    border-radius: 1000%;            /* Forces the box shape into a perfect circle */
     
     /* The magic blend: 0px offset, 80px blur softness, 60px wide spread radius */
     box-shadow: 0 0 80px 60px rgba(0, 0, 0, 0.6); 
