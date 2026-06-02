@@ -137,6 +137,7 @@ body {
         width: 100% !important;
     }
 
+    /* Fixed, easily-clickable hamburger button area */
     .hamburger-btn {
         display: flex !important;
         flex-direction: column !important;
@@ -156,6 +157,7 @@ body {
         transition: all 0.3s ease !important;
     }
 
+    /* Drawer overlay styling */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -183,6 +185,7 @@ body {
         right: 0 !important;
     }
 
+    /* Clean transition transformations into X */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(8px) rotate(45deg) !important;
     }
@@ -193,17 +196,17 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* PUSHES CONTENT HIGHER ON MOBILE */
+    /* COPIED FROM DESIGN IN IMAGE: Sits text cleanly in the upper sky above the moon */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: flex-start !important; /* Forces layout to start from top instead of middle */
+        justify-content: flex-start !important; 
         align-items: center !important;
         text-align: center !important;
         width: 100% !important;
-        margin-top: 40px !important;           /* Creates breathing room under the navbar links */
+        margin-top: 60px !important; /* Adjusts how high the text climbs into the sky */
     }
 
     .text-blur-wrapper {
@@ -213,10 +216,12 @@ body {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
+        background-image: url('shadow.png') !important; /* Retains your custom image shadow backdrop */
+        background-size: 100% 100% !important;
     }
 
     .welcome-container h1 {
-        font-size: 42px !important; 
+        font-size: 46px !important; 
         letter-spacing: 1px !important;
         margin-bottom: 12px !important;
         text-align: center !important;
@@ -227,6 +232,6 @@ body {
         font-size: 13px !important;
         line-height: 1.5 !important;
         text-align: center !important;
-        max-width: 290px !important;
+        max-width: 300px !important;
     }
 }
