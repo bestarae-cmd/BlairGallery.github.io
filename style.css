@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +18,7 @@ body {
 }
 
 /* ==========================================================================
-   BACKGROUND SCENERY
+   2. BACKGROUND SCENERY
    ========================================================================== */
 .scenery-container {
     position: fixed;
@@ -47,7 +50,7 @@ body {
 }
 
 /* ==========================================================================
-   DESKTOP NAVIGATION (COMPUTERS)
+   3. DESKTOP NAVIGATION (COMPUTERS)
    ========================================================================== */
 .navbar {
     position: relative;
@@ -81,7 +84,7 @@ body {
 }
 
 /* ==========================================================================
-   DESKTOP CONTENT (COMPUTERS)
+   4. DESKTOP CONTENT (COMPUTERS) - LITERAL CIRCLE BADGE
    ========================================================================== */
 .welcome-container {
     position: relative;
@@ -94,138 +97,9 @@ body {
     margin-top: -40px;
 }
 
+/* A literal, strict geometric circle container that wraps your text tightly */
 .text-blur-wrapper {
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 40px 35px rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 12px;
-    display: inline-block;
-    max-width: 540px;
-}
-
-.welcome-container h1 { 
-    font-size: 90px; 
-    font-weight: 800; 
-    letter-spacing: 2px; 
-}
-
-.welcome-container .subtext { 
-    font-size: 16px; 
-    line-height: 1.6; 
-    color: rgba(255, 255, 255, 0.8); 
-}
-
-/* ==========================================================================
-   MOBILE RESPONSIVE LAYOUT (< 768px)
-   ========================================================================== */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 24px;
-    }
-
-    /* Reveal mobile hamburger menu */
-    .hamburger-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 28px;
-        height: 18px;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    .hamburger-btn span {
-        display: block;
-        width: 100%;
-        height: 3px;
-        background-color: white;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-    /* Transform menu links to hide off-screen */
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%; 
-        width: 75%;
-        height: 100vh;
-        background: rgba(11, 14, 26, 0.98);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.4s ease;
-        z-index: 90;
-    }
-
-    .nav-menu a {
-        margin: 20px 0;
-        font-size: 24px;
-        margin-left: 0;
-    }
-
-    /* Slide open logic */
-    .menu-checkbox:checked ~ .nav-menu {
-        right: 0;
-    }
-
-    /* Animate hamburger to X */
-    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
-    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
-        opacity: 0;
-    }
-    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* Center-align layout for small mobile screens */
-    .welcome-container {
-        padding: 0 24px;
-        align-items: center;
-        text-align: center;
-    }
-
-/* Clean out the old text wrapper styles so they don't fight the circle */
-.text-blur-wrapper {
-    position: relative;
-    display: inline-block;
-    max-width: 540px;
-}
-
-/* Create a mathematically perfect, soft circular glow directly behind the text */
-.text-blur-wrapper::before {
-    content: "";
-    position: absolute;
+    background: rgba(0, 0, 0, 0.7); /* Solid dark mask background */
+    border: 2px solid rgba(255, 255, 255, 0.15); /* Visible edge line defining the literal circle */
     
-    /* Center it perfectly behind the text block */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Force it to be a strict square so it scales into a perfect circle */
-    width: 650px;
-    height: 650px;
-    border-radius: 50%;
-    
-    /* Paint a perfect dark radial fog that melts smoothly into transparency */
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 70%);
-    
-    z-index: -1; /* Pushes the perfect circle behind your text letters */
-    pointer-events: none;
-}
-
-    .welcome-container h1 {
-        font-size: 50px;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-    }
-
-    .welcome-container .subtext {
-        font-size: 14px;
-    }
-}
+    /* Strict 1:1 ratio forces a perfect square, border-radius makes it a literal circle */
