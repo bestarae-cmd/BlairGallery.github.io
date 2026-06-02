@@ -190,17 +190,33 @@ body {
         text-align: center;
     }
 
-  /* Smooth, circular atmospheric mist behind text for elite readability */
+/* Clean out the old text wrapper styles so they don't fight the circle */
 .text-blur-wrapper {
-    background: rgba(0, 0, 0, 0.6); /* Slightly darker center for text contrast */
-    border-radius: 1000%;            /* Forces the box shape into a perfect circle */
-    
-    /* The magic blend: 0px offset, 80px blur softness, 60px wide spread radius */
-    box-shadow: 0 0 80px 60px rgba(0, 0, 0, 0.6); 
-    
-    padding: 40px;                 /* Extra inner breathing room for the circular shape */
+    position: relative;
     display: inline-block;
     max-width: 540px;
+}
+
+/* Create a mathematically perfect, soft circular glow directly behind the text */
+.text-blur-wrapper::before {
+    content: "";
+    position: absolute;
+    
+    /* Center it perfectly behind the text block */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Force it to be a strict square so it scales into a perfect circle */
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    
+    /* Paint a perfect dark radial fog that melts smoothly into transparency */
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 70%);
+    
+    z-index: -1; /* Pushes the perfect circle behind your text letters */
+    pointer-events: none;
 }
 
     .welcome-container h1 {
