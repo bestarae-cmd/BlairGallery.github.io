@@ -1,95 +1,42 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blairsama</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body {
-    color: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: #0b0e1a; /* Dark backup sky color */
-}
+    <div class="scenery-container">
+        <video class="video-background" autoplay loop muted playsinline>
+            <source src="background.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="moon"></div>
+        
+        <img src="mountains.png" class="mountains-layer" alt="Mountains">
+    </div>
 
-/* Master background container */
-.scenery-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+    <header class="navbar">
+        <div class="logo">Blairsama</div>
+        <nav>
+            <a href="#" class="nav-link active">Home</a>
+            <a href="#" class="nav-link">Gallery</a>
+            <a href="#" class="nav-link">Font</a>
+            <a href="#" class="nav-link">Contact</a>
+        </nav>
+    </header>
 
-/* Video Wrapper for Stars */
-.video-background, .video-background video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    <main class="welcome-container">
+        <h1>WELCOME</h1>
+        <p class="subtext">
+            blah blah blah hahshaqiowieieeieiwjw<br>
+            jejejrjrjrjrjrjddjdjdjnejrndjdjdjdjdjdjdj<br>
+            jejrjrjrjkrkrkrkrkrkkjwwjejrkrkrkrjrjrjejdjd
+        </p>
+    </main>
 
-/* CSS Moon - Locked perfectly in the center */
-.moon {
-    position: absolute;
-    bottom: 15%;
-    left: 40%;                 /* Moves the left edge of the moon to the exact middle of the screen */
-    transform: translateX(-50%); /* Pulls the moon back by half its own width so it centers perfectly */
-    width: 220px;
-    height: 220px;
-    background: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-    z-index: 1;
-}
-/* Transparent Mountain Overlay */
-.mountains-layer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This forces it to stretch and cover the PC view width */
-    z-index: 2; /* Puts mountains in front of moon/stars */
-}
-
-/* --- Layout Elements --- */
-.navbar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 80px; 
-}
-
-.logo { font-size: 24px; font-weight: bold; }
-
-.navbar nav a {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    margin-left: 40px;
-    font-size: 18px;
-    transition: color 0.3s;
-}
-
-.navbar nav a:hover, .navbar nav a.active { color: #ffffff; }
-
-.welcome-container {
-    position: relative;
-    z-index: 10;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 80px; 
-    margin-top: -40px;  
-}
-
-.welcome-container h1 { font-size: 90px; font-weight: 800; letter-spacing: 2px; }
-.welcome-container .subtext { font-size: 16px; line-height: 1.6; max-width: 500px; color: rgba(255, 255, 255, 0.8); }
+</body>
+</html>
