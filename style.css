@@ -18,16 +18,38 @@ body {
 }
 
 /* ==========================================================================
-   2. LAYERED BACKGROUND SCENERY (LOCKED & IMMOBILE)
+   2. LAYERED BACKGROUND SCENERY (LOCKED TOGETHER AS ONE UNIT)
    ========================================================================== */
 .scenery-container {
-    position: fixed;   /* Freezes the entire art container to the viewport */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;      /* Uses exact viewport width */
-    height: 100vh;     /* Uses exact viewport height */
-    z-index: -1; 
-    overflow: hidden;  /* Prevents any internal spilling or shifting */
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Both the video and the image share this identical frame size */
+.video-background,
+.mountains-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* Forces both files to scale identically to fill the screen */
+    pointer-events: none;
+}
+
+/* Video Layer sits in the back of this frame */
+.video-background {
+    z-index: 0;
+}
+
+/* Mountains Layer sits precisely on top of the video within the same frame */
+.mountains-layer {
+    z-index: 2;
 }
 
 /* Video Layer (Back - Completely Static) */
