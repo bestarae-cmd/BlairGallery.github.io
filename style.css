@@ -97,24 +97,24 @@ body {
     margin-top: -40px;
 }
 
-/* Pulls your custom shadow.png image to float perfectly behind the text */
+/* Pulls your custom shadow.png image from GitHub to float perfectly behind the text */
 .text-blur-wrapper {
     background-image: url('shadow.png');
-    background-size: 100% 100%;       /* Forces your shadow graphic to scale nicely with text */
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: transparent;    /* Removed old solid black box color */
-    border: none;                     /* Removed old literal circle border line */
-    box-shadow: none;                 /* Removed old rigid CSS shadows completely */
-    border-radius: 0;                 /* Cleared old rounding restrictions */
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
     
     display: inline-block;
     max-width: 540px;
-    padding: 60px 80px; /* Gives your custom image shadow breathing room around words */
+    padding: 60px 80px; /* Gives your shadow graphic breathing room around the text */
 }
 
 .welcome-container h1 { 
-    font-size: 90px; /* Restored back to your original giant desktop layout size */
+    font-size: 90px; 
     font-weight: 800; 
     letter-spacing: 2px;
     margin-bottom: 10px;
@@ -187,4 +187,33 @@ body {
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
     }
-    .menu-checkbox:
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Center layout elements for mobile devices */
+    .welcome-container {
+        padding: 0 24px;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Adapts your custom shadow image container tightly to phone screens */
+    .text-blur-wrapper {
+        max-width: 100%;
+        padding: 40px 30px; 
+    }
+
+    .welcome-container h1 {
+        font-size: 50px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .welcome-container .subtext {
+        font-size: 14px;
+    }
+}
