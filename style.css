@@ -8,33 +8,30 @@
     font-family: 'Arial', sans-serif;
 }
 
-html, body {
-    width: 100%;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+html {
+    scroll-behavior: smooth; /* Ensures clicking navigation links slides smoothly */
+    overflow-x: hidden;
 }
 
 body {
     color: white;
     background-color: #0b0e1a;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* ==========================================================================
-   2. SCROLLER STRUCTURE (MANUAL FREE CONTROL)
+   2. NATURAL FEED STRUCTURE (FACEBOOK SCROLL FLOW)
    ========================================================================== */
 .scroll-container {
     width: 100%;
-    height: 100vh;
-    overflow-y: auto !important; /* Continuous control scroll active */
-    scroll-behavior: smooth !important; /* Enables smooth glide effects on menu selection */
-    -webkit-overflow-scrolling: touch; 
+    display: flex;
+    flex-direction: column;
 }
 
 .page-section {
     width: 100vw;
-    min-height: 100vh; /* Scaled seamlessly to capture complete video asset limit heights */
+    height: 100vh; /* Keeps content sections perfectly scaled to display monitors */
     position: relative;
     overflow: hidden;
     display: flex;
@@ -49,20 +46,20 @@ body {
     top: 0;
     left: 0;
     width: 100vw !important;
-    height: 100% !important;
+    height: 100vh !important;
     z-index: 1; 
     overflow: hidden;
 }
 
-/* Clean transition overlay to prevent harsh lines between webm assets */
+/* Blends the top edge of underwater.webm elegantly into page 1's backdrop */
 .transition-fade-top {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 25vh; /* Extends overlay frame across top quadrant */
+    height: 35vh; /* Expands gradient blending deck */
     background: linear-gradient(to bottom, #0b0e1a 0%, transparent 100%);
-    z-index: 4; /* Layers text-safe gradients clearly over background loop */
+    z-index: 4; 
     pointer-events: none;
 }
 
@@ -93,7 +90,7 @@ body {
    4. FIXED HEADER NAVIGATION 
    ========================================================================== */
 .navbar {
-    position: fixed; 
+    position: fixed; /* Stays anchored permanently on the screen during scroll */
     top: 0;
     left: 0;
     width: 100%;
@@ -196,7 +193,7 @@ body {
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* CONTAINER DEFAULT BASES */
+/* GENERIC PLACEHOLDER VIEWPORTS */
 .gallery-container, .contact-container {
     justify-content: center;
     align-items: center;
