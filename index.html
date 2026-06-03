@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=50">
+    <link rel="stylesheet" href="style.css?v=52">
 </head>
 <body>
 
-    <div class="scenery-container">
-        <video class="video-background" autoplay loop muted playsinline>
-            <source src="Background.webm" type="video/webm">
-            Your browser does not support the video tag.
-        </video>
-        
-        <img src="mountains.png" class="mountains-layer" alt="Mountains">
-    </div>
-
+    <!-- FIXED NAVBAR NAVIGATION -->
     <header class="navbar">
         <div class="logo">Blairsama</div>
         
@@ -28,22 +20,71 @@
         </label>
 
         <nav class="nav-menu">
-            <a href="#" class="nav-link active">Home</a>
-            <a href="#" class="nav-link">Gallery</a>
-            <a href="#" class="nav-link">Font</a>
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About Me</a>
+            <a href="#gallery" class="nav-link">Gallery</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </nav>
     </header>
 
-    <main class="welcome-container">
-        <div class="text-blur-wrapper">
-            <h1>WELCOME</h1>
-            <p class="subtext">
-                blah blah blah hahshaqiowieieeieiwjw<br>
-                jejejrjrjrjrjrjddjdjdjnejrndjdjdjdjdjdjdj<br>
-                jejrjrjrjkrkrkrkrkrkkjwwjejrkrkrkrjrjrjejdjd
-            </p>
-        </div>
+    <!-- MAIN SNAP SCROLLER VIEWPORT -->
+    <main class="scroll-container">
+        
+        <!-- SECTION 1: HOME (Original Mountain & Webm Backdrop) -->
+        <section id="home" class="page-section center-content">
+            <div class="scenery-container">
+                <video class="video-background" autoplay loop muted playsinline>
+                    <source src="Background.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+                <img src="mountains.png" class="mountains-layer" alt="Mountains">
+            </div>
+
+            <div class="text-blur-wrapper">
+                <h1>WELCOME</h1>
+                <p class="subtext">
+                    Welcome to my space. Immerse yourself in the dark atmospheric depths.<br>
+                    Scroll down or use the navigation menu to take a look around.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ABOUT ME (New Underwater Webm Backdrop) -->
+        <section id="about" class="page-section right-content">
+            <div class="scenery-container">
+                <video class="video-background" autoplay loop muted playsinline>
+                    <source src="underwater.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+                <!-- No mountains here, just pure underwater vibes -->
+            </div>
+
+            <div class="about-content">
+                <h2>ABOUT ME</h2>
+                <p>
+                    My name is Blair, and I have 6 years of design experience. 
+                    I started my journey in the intro community, and since then, I've expanded into game development and web design! 
+                    The program I use most is Alight Motion, but I've also been experimenting with After Effects.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GALLERY (Placeholder) -->
+        <section id="gallery" class="page-section center-content">
+            <div class="text-blur-wrapper">
+                <h2>GALLERY</h2>
+                <p class="subtext">Your interactive showcase elements will go here.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CONTACT -->
+        <section id="contact" class="page-section center-content">
+            <div class="text-blur-wrapper">
+                <h2>CONTACT</h2>
+                <p class="subtext">Let's connect.</p>
+            </div>
+        </section>
+
     </main>
 
 </body>
