@@ -8,14 +8,16 @@
     font-family: 'Arial', sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
-    overflow: hidden; 
+html, body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent native window double scrollbars */
 }
 
 body {
     color: white;
-    height: 100vh;
     background-color: #0b0e1a;
 }
 
@@ -23,9 +25,12 @@ body {
    2. SNAP SCROLLER STRUCTURE & SECTIONS
    ========================================================================== */
 .scroll-container {
+    width: 100%;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: scroll !important; /* Forces layout context scrolling active */
     scroll-snap-type: y mandatory; 
+    scroll-behavior: smooth !important; /* Essential desktop link animations */
+    -webkit-overflow-scrolling: touch; /* Mobile elastic rendering layout hook */
 }
 
 .page-section {
@@ -38,10 +43,8 @@ body {
 }
 
 /* ==========================================================================
-   3. BACKGROUND SCENERY (SEPARATED PER SECTION)
+   3. BACKGROUND SCENERY (SEPARATED COVERS)
    ========================================================================== */
-
-/* Base configuration forcing background elements to cover full screens smoothly */
 .home-bg-container,
 .about-bg-container {
     position: absolute;
@@ -64,18 +67,16 @@ body {
     pointer-events: none;
 }
 
-/* Rebuilding your precise original layering for Page 1 */
 .home-bg-container .video-background {
     z-index: 2;
 }
 
 .home-bg-container .mountains-layer {
-    z-index: 3; /* Places the mountains in front of Background.webm */
+    z-index: 3; /* Mountain asset layer stacked gracefully over Background.webm */
 }
 
-/* Pure background assignment for Page 2 */
 .about-bg-container .video-background {
-    z-index: 2; /* Runs underwater.webm without foreground interference */
+    z-index: 2; /* Runs isolated underwater atmosphere on slide 2 */
 }
 
 /* ==========================================================================
@@ -113,13 +114,14 @@ body {
 
 .nav-menu a:hover, .nav-menu a.active { 
     color: #ffffff; 
+    font-weight: bold;
 }
 
 /* ==========================================================================
-   5. INTERFACE DESIGN LAYOUT CARDS
+   5. DESKTOP CONTENT CARDS (COMPUTERS)
    ========================================================================== */
 
-/* HOME VIEWPORT PANELS */
+/* PAGE 1: WELCOME SCREEN */
 .welcome-container {
     z-index: 5;
     flex-direction: column;
@@ -156,7 +158,7 @@ body {
     color: rgba(255, 255, 255, 0.85); 
 }
 
-/* ABOUT ME VIEWPORT PANELS */
+/* PAGE 2: ABOUT ME PANEL */
 .about-container {
     justify-content: flex-end; 
     align-items: center;
@@ -184,7 +186,7 @@ body {
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* DEFAULT WRAPPERS FOR REMAINING SLIDES */
+/* CONTAINER DEFAULT BASES */
 .gallery-container, .contact-container {
     justify-content: center;
     align-items: center;
@@ -277,6 +279,7 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
+    /* Page 1 (Home) Mobile Modifiers */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -315,6 +318,7 @@ body {
         max-width: 300px !important;
     }
 
+    /* Page 2 (About Me) Mobile Modifiers */
     .about-container {
         padding: 0 24px !important;
         justify-content: center !important;
