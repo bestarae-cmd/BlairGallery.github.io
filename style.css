@@ -10,7 +10,7 @@
 
 html {
     scroll-behavior: smooth;
-    overflow: hidden; /* Strips double viewport-wrapper scrollbars */
+    overflow: hidden; 
 }
 
 body {
@@ -25,28 +25,31 @@ body {
 .scroll-container {
     height: 100vh;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory; /* Snaps screens clean on scroll release */
+    scroll-snap-type: y mandatory; 
 }
 
 .page-section {
     width: 100vw;
     height: 100vh;
-    scroll-snap-align: start; /* Locks viewport view straight to section start */
+    scroll-snap-align: start; 
     position: relative;
     overflow: hidden;
     display: flex;
 }
 
 /* ==========================================================================
-   3. BACKGROUND SCENERY (SECTION-BOUND TRANSITIONS)
+   3. BACKGROUND SCENERY (SEPARATED PER SECTION)
    ========================================================================== */
-.page-section .scenery-container {
-    position: absolute; /* Swapped from fixed so environments transition per slide */
+
+/* Base configuration forcing background elements to cover full screens smoothly */
+.home-bg-container,
+.about-bg-container {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 1; /* Positioned directly behind section typographic values */
+    z-index: 1; 
     overflow: hidden;
 }
 
@@ -61,19 +64,25 @@ body {
     pointer-events: none;
 }
 
-.video-background {
+/* Rebuilding your precise original layering for Page 1 */
+.home-bg-container .video-background {
     z-index: 2;
 }
 
-.mountains-layer {
-    z-index: 3;
+.home-bg-container .mountains-layer {
+    z-index: 3; /* Places the mountains in front of Background.webm */
+}
+
+/* Pure background assignment for Page 2 */
+.about-bg-container .video-background {
+    z-index: 2; /* Runs underwater.webm without foreground interference */
 }
 
 /* ==========================================================================
    4. FIXED HEADER NAVIGATION 
    ========================================================================== */
 .navbar {
-    position: fixed; /* Locked on top globally over scrolling screens */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
@@ -147,9 +156,9 @@ body {
     color: rgba(255, 255, 255, 0.85); 
 }
 
-/* ABOUT ME VIEWPORT PANELS (Safer Layout Structure) */
+/* ABOUT ME VIEWPORT PANELS */
 .about-container {
-    justify-content: flex-end; /* Pushes content right */
+    justify-content: flex-end; 
     align-items: center;
     padding-right: 120px;
 }
@@ -158,8 +167,8 @@ body {
     position: relative;
     z-index: 10;
     max-width: 550px;
-    text-align: right; /* Aligned right to match image_f67ddc.jpg */
-    padding-bottom: 60px; /* Buffer height so text clears bottom anchor webm assets */
+    text-align: right; 
+    padding-bottom: 60px; 
 }
 
 .about-content h2 {
@@ -202,8 +211,9 @@ body {
         width: 100% !important;
     }
 
-    .page-section .scenery-container .video-background,
-    .page-section .scenery-container .mountains-layer {
+    .home-bg-container .video-background,
+    .home-bg-container .mountains-layer,
+    .about-bg-container .video-background {
         object-fit: cover !important; 
         width: 100% !important;
         height: 100% !important;
@@ -267,7 +277,6 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* Mobile overrides for Home panel */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -306,7 +315,6 @@ body {
         max-width: 300px !important;
     }
 
-    /* Mobile overrides for About Me panel */
     .about-container {
         padding: 0 24px !important;
         justify-content: center !important;
