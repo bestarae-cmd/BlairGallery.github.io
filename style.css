@@ -15,7 +15,7 @@ html {
 
 body {
     color: white;
-    background-color: #0b0e1a; /* The shared background color both videos melt into */
+    background-color: #0b0e1a;
     overflow-x: hidden;
     width: 100%;
 }
@@ -64,6 +64,11 @@ body {
 
 .mountains-layer {
     z-index: 2;
+}
+
+/* Forces the browser to pin the video frame to the bottom edge */
+.video-anchor-bottom {
+    object-position: center bottom !important;
 }
 
 /* HOME BG: Fades smoothly to transparent at the bottom 30% */
@@ -252,7 +257,7 @@ body {
     .text-blur-wrapper { max-width: 100% !important; padding: 40px 20px !important; }
     .welcome-container h1 { font-size: 46px !important; }
     .welcome-container .subtext { font-size: 13px !important; }
-    .about-container { padding: 0 24px !important; justify-content: center !important; margin-top: 12vh !important; }
+    .about-container { padding: 0 24px !important; justify-content: center !important; margin-top: 12vh !important; margin-top: 12vh !important; }
     .about-content { text-align: center !important; }
     .about-content h2 { font-size: 46px !important; }
     .about-content p { font-size: 13px !important; }
