@@ -156,4 +156,168 @@ body {
 }
 
 .about-container {
-    justify-content:
+    justify-content: flex-end; 
+    align-items: center;
+    padding-right: 120px;
+}
+
+.about-content {
+    position: relative;
+    z-index: 20; 
+    max-width: 550px;
+    text-align: right; 
+    padding-bottom: 40px; 
+}
+
+.about-content h2 {
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.gallery-container, .contact-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.gallery-content, .contact-content {
+    position: relative;
+    z-index: 20;
+}
+
+.gallery-container h2, .contact-container h2 {
+    font-size: 60px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   6. MOBILE RESPONSIVE LAYOUT (< 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background-color: rgba(11, 14, 26, 0.85) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .hamburger-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 32px !important;
+        height: 20px !important;
+        z-index: 1000 !important;
+        cursor: pointer !important;
+    }
+
+    .hamburger-btn span {
+        display: block !important;
+        width: 100% !important;
+        height: 3px !important;
+        background-color: white !important;
+        border-radius: 2px !important;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease !important;
+    }
+
+    /* THE HAMBURGER TO 'X' TRANSFORMATION */
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg) !important;
+    }
+
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
+        opacity: 0 !important;
+        transform: scale(0) !important;
+    }
+
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg) !important;
+    }
+
+    .nav-menu {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important; 
+        width: 75% !important;
+        height: 100vh !important;
+        background: rgba(11, 14, 26, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        transition: right 0.4s ease !important;
+        z-index: 999 !important; 
+    }
+
+    .nav-menu a {
+        margin: 20px 0 !important;
+        font-size: 24px !important;
+    }
+
+    .menu-checkbox:checked ~ .nav-menu { 
+        right: 0 !important; 
+    }
+
+    /* WELCOME LAYOUT FIXED MOBILE MIDDLE CENTER */
+    .welcome-container {
+        padding-left: 0 !important; /* Clear out desktop layout shifts */
+        padding-right: 0 !important;
+        padding: 0 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; /* Vertical focus center */
+        align-items: center !important;     /* Horizontal content center */
+    }
+
+    .text-blur-wrapper { 
+        display: block !important;         /* Drop baseline inline traits */
+        max-width: 100% !important; 
+        padding: 40px 20px !important; 
+        text-align: center !important;      /* Centers text lines inside shadow card */
+        margin: 0 auto !important;          /* Anchors shadow block layout to center */
+    }
+    
+    .welcome-container h1 { 
+        font-size: 46px !important;
+        text-align: center !important;
+    }
+    
+    .welcome-container .subtext { 
+        font-size: 13px !important;
+        text-align: center !important;
+    }
+    
+    .about-container { 
+        padding: 0 24px !important; 
+        padding-right: 0 !important; /* Clear out desktop layouts */
+        justify-content: center !important; 
+        align-items: center !important;
+    }
+    
+    .about-content { 
+        text-align: center !important; 
+        max-width: 100% !important;
+    }
+    
+    .about-content h2 { 
+        font-size: 46px !important; 
+    }
+    
+    .about-content p { 
+        font-size: 13px !important; 
+    }
+}
