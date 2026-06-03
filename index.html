@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=57">
+    <link rel="stylesheet" href="style.css?v=59">
 </head>
 <body>
 
@@ -26,17 +26,28 @@
         </nav>
     </header>
 
+    <div class="fixed-bg-wrapper">
+        <div id="bg-home" class="bg-layer active">
+            <video class="video-background" autoplay loop muted playsinline>
+                <source src="Background.webm" type="video/webm">
+            </video>
+            <img src="mountains.png" class="mountains-layer" alt="Mountains">
+        </div>
+
+        <div id="bg-transition-strip" class="transition-strip">
+            <img src="transition.png" alt="Transition Divider">
+        </div>
+
+        <div id="bg-about" class="bg-layer">
+            <video class="video-background" autoplay loop muted playsinline>
+                <source src="underwater.webm" type="video/webm">
+            </video>
+        </div>
+    </div>
+
     <main class="scroll-container">
         
         <section id="home" class="page-section welcome-container">
-            <div class="home-bg-container">
-                <video class="video-background" autoplay loop muted playsinline>
-                    <source src="Background.webm" type="video/webm">
-                    Your browser does not support the video tag.
-                </video>
-                <img src="mountains.png" class="mountains-layer" alt="Mountains">
-            </div>
-
             <div class="text-blur-wrapper">
                 <h1>WELCOME</h1>
                 <p class="subtext">
@@ -47,15 +58,6 @@
         </section>
 
         <section id="about" class="page-section about-container">
-            <div class="about-bg-container">
-                <div class="transition-fade-top"></div>
-                
-                <video class="video-background" autoplay loop muted playsinline>
-                    <source src="underwater.webm" type="video/webm">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
             <div class="about-content">
                 <h2>ABOUT ME</h2>
                 <p>
@@ -83,11 +85,10 @@
     </main>
 
     <script>
-        // Smoothly scroll down the page to the exact target location
+        // Smoothly glide viewport to destination targets on click
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
                 
@@ -103,18 +104,41 @@
             });
         });
 
-        // Tracks native scroll positions across the window frame to highlight links
+        // Dynamic Background Transition Controller
         const sections = document.querySelectorAll('.page-section');
         const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        const bgHome = document.getElementById('bg-home');
+        const bgAbout = document.getElementById('bg-about');
+        const transitionStrip = document.getElementById('bg-transition-strip');
 
         window.addEventListener('scroll', () => {
-            let currentSectionId = "home";
             const scrollPos = window.scrollY || document.documentElement.scrollTop;
             const windowHeight = window.innerHeight;
+            
+            // --- PARALLAX BACKGROUND CROSSFADE SYSTEM ---
+            // Calculate progress moving from section 1 (Home) to section 2 (About Me)
+            let progressToAbout = scrollPos / windowHeight;
+            progressToAbout = Math.max(0, Math.min(1, progressToAbout)); // Clamp value between 0 and 1
 
+            // Home environment fades back cleanly
+            bgHome.style.opacity = 1 - progressToAbout;
+            
+            // Underwater environment fades up elegantly to swallow previous layers
+            bgAbout.style.opacity = progressToAbout;
+            
+            // Your PNG transition strip peaks right in the center of the scroll gap
+            if (scrollPos > 0 && scrollPos < windowHeight) {
+                transitionStrip.style.opacity = Math.sin(progressToAbout * Math.PI); // Perfect curve peak
+                transitionStrip.style.transform = `translateY(${(1 - progressToAbout) * 50}px)`; 
+            } else {
+                transitionStrip.style.opacity = 0;
+            }
+
+            // --- NAVBAR LINK HIGHLIGHTER ---
+            let currentSectionId = "home";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                // Dynamically changes color highlights when the frame passes the midpoint threshold
                 if (scrollPos >= (sectionTop - windowHeight / 2)) {
                     currentSectionId = section.getAttribute('id');
                 }
