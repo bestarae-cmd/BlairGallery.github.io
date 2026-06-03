@@ -122,7 +122,7 @@ body {
 }
 
 /* ==========================================================================
-   5. CONTENT DISPLAY CARDS (COMPUTERS) - LOCKED HIGHER Z-INDEX FOR VISIBILITY
+   5. CONTENT DISPLAY CARDS (COMPUTERS)
    ========================================================================== */
 .welcome-container {
     flex-direction: column;
@@ -132,7 +132,7 @@ body {
 
 .text-blur-wrapper {
     position: relative;
-    z-index: 20; /* High index forces text to stack cleanly on top of masks */
+    z-index: 20; 
     background-image: url('shadow.png');
     background-size: 100% 100%;
     background-position: center;
@@ -163,7 +163,7 @@ body {
 
 .about-content {
     position: relative;
-    z-index: 20; /* High index forces text to stack cleanly on top of masks */
+    z-index: 20; 
     max-width: 550px;
     text-align: right; 
     padding-bottom: 40px; 
@@ -226,16 +226,17 @@ body {
         height: 3px !important;
         background-color: white !important;
         border-radius: 2px !important;
-        transition: transform 0.3s ease, opacity 0.3s ease !important; /* Smooth transitions for the X animation */
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease !important;
     }
 
-    /* THE HAMBURGER TO 'X' ANIMATION FORMULAS */
+    /* THE HAMBURGER TO 'X' TRANSFORMATION */
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
         transform: translateY(8px) rotate(45deg) !important;
     }
 
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
         opacity: 0 !important;
+        transform: scale(0) !important;
     }
 
     .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
@@ -263,7 +264,9 @@ body {
         font-size: 24px !important;
     }
 
-    .menu-checkbox:checked ~ .nav-menu { right: 0 !important; }
+    .menu-checkbox:checked ~ .nav-menu { 
+        right: 0 !important; 
+    }
 
     .welcome-container {
         padding-left: 0 !important;
