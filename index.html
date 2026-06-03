@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=56">
+    <link rel="stylesheet" href="style.css?v=57">
 </head>
 <body>
 
@@ -83,7 +83,7 @@
     </main>
 
     <script>
-        // Smoothly glide to the section when clicked instead of teleporting
+        // Smoothly scroll down the page to the exact target location
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -92,13 +92,9 @@
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
-                    const container = document.querySelector('.scroll-container');
-                    // Calculate exact offset position inside our custom scroll element
-                    const targetPosition = targetSection.offsetTop;
-                    
-                    container.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
                 
@@ -107,19 +103,19 @@
             });
         });
 
-        // Track scrolling positions to highlight active page link on top menu
-        const scrollContainer = document.querySelector('.scroll-container');
+        // Tracks native scroll positions across the window frame to highlight links
         const sections = document.querySelectorAll('.page-section');
         const navLinks = document.querySelectorAll('.nav-menu a');
 
-        scrollContainer.addEventListener('scroll', () => {
+        window.addEventListener('scroll', () => {
             let currentSectionId = "home";
-            const containerHeight = scrollContainer.clientHeight;
-            const scrollPos = scrollContainer.scrollTop;
-            
+            const scrollPos = window.scrollY || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollPos >= (sectionTop - containerHeight / 2)) {
+                // Dynamically changes color highlights when the frame passes the midpoint threshold
+                if (scrollPos >= (sectionTop - windowHeight / 2)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
