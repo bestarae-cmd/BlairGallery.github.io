@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=55">
+    <link rel="stylesheet" href="style.css?v=56">
 </head>
 <body>
 
-    <!-- FIXED NAVBAR NAVIGATION -->
     <header class="navbar">
         <div class="logo">Blairsama</div>
         
@@ -27,10 +26,8 @@
         </nav>
     </header>
 
-    <!-- MAIN VERTICAL SNAP SCROLLER -->
     <main class="scroll-container">
         
-        <!-- SECTION 1: HOME (Mountains + Sky Webm) -->
         <section id="home" class="page-section welcome-container">
             <div class="home-bg-container">
                 <video class="video-background" autoplay loop muted playsinline>
@@ -49,9 +46,10 @@
             </div>
         </section>
 
-        <!-- SECTION 2: ABOUT ME (Pure Underwater Webm) -->
         <section id="about" class="page-section about-container">
             <div class="about-bg-container">
+                <div class="transition-fade-top"></div>
+                
                 <video class="video-background" autoplay loop muted playsinline>
                     <source src="underwater.webm" type="video/webm">
                     Your browser does not support the video tag.
@@ -68,7 +66,6 @@
             </div>
         </section>
 
-        <!-- SECTION 3: GALLERY PLACEHOLDER -->
         <section id="gallery" class="page-section gallery-container">
             <div class="gallery-content">
                 <h2>GALLERY</h2>
@@ -76,7 +73,6 @@
             </div>
         </section>
 
-        <!-- SECTION 4: CONTACT PLACEHOLDER -->
         <section id="contact" class="page-section contact-container">
             <div class="contact-content">
                 <h2>CONTACT</h2>
@@ -86,39 +82,44 @@
 
     </main>
 
-    <!-- AUTOMATIC SCROLL AND HIGHLIGHT SCRIPT -->
     <script>
+        // Smoothly glide to the section when clicked instead of teleporting
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Intercepts normal browser jump
+                e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
-                    // Pulls the snapped layout view straight to your anchor point smoothly
-                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const container = document.querySelector('.scroll-container');
+                    // Calculate exact offset position inside our custom scroll element
+                    const targetPosition = targetSection.offsetTop;
+                    
+                    container.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
                 }
                 
-                // Close responsive hamburger drawer automatically upon selection
                 const checkbox = document.getElementById('menu-toggle');
                 if (checkbox) checkbox.checked = false;
             });
         });
 
-        // Tracks current panel depth to switch navbar 'active' color indicators
+        // Track scrolling positions to highlight active page link on top menu
         const scrollContainer = document.querySelector('.scroll-container');
         const sections = document.querySelectorAll('.page-section');
         const navLinks = document.querySelectorAll('.nav-menu a');
 
         scrollContainer.addEventListener('scroll', () => {
-            let currentSectionId = "home"; // Fallback to safe default
+            let currentSectionId = "home";
             const containerHeight = scrollContainer.clientHeight;
+            const scrollPos = scrollContainer.scrollTop;
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                // Triggers structural highlight change once half the screen area shifts sections
-                if (scrollContainer.scrollTop >= (sectionTop - containerHeight / 2)) {
+                if (scrollPos >= (sectionTop - containerHeight / 2)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
