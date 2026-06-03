@@ -66,18 +66,18 @@ body {
     z-index: 2;
 }
 
-/* Forces the browser to pin the video frame to the bottom edge */
+/* Pins video frame securely to the bottom edge */
 .video-anchor-bottom {
     object-position: center bottom !important;
 }
 
-/* HOME BG: Fades smoothly to transparent at the bottom 30% */
+/* HOME BG MASK: Bottom fade gradient track */
 .video-fade-bottom {
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, transparent 100%);
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, transparent 100%);
 }
 
-/* ABOUT BG: Fades smoothly from transparent at the top 30% */
+/* ABOUT BG MASK: Top fade gradient track */
 .video-fade-top {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%);
     mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%);
@@ -122,10 +122,9 @@ body {
 }
 
 /* ==========================================================================
-   5. CONTENT DISPLAY CARDS (COMPUTERS)
+   5. CONTENT DISPLAY CARDS (COMPUTERS) - LOCKED HIGHER Z-INDEX FOR VISIBILITY
    ========================================================================== */
 .welcome-container {
-    z-index: 5;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
@@ -133,6 +132,7 @@ body {
 
 .text-blur-wrapper {
     position: relative;
+    z-index: 20; /* High index forces text to stack cleanly on top of masks */
     background-image: url('shadow.png');
     background-size: 100% 100%;
     background-position: center;
@@ -156,7 +156,6 @@ body {
 }
 
 .about-container {
-    z-index: 5;
     justify-content: flex-end; 
     align-items: center;
     padding-right: 120px;
@@ -164,6 +163,7 @@ body {
 
 .about-content {
     position: relative;
+    z-index: 20; /* High index forces text to stack cleanly on top of masks */
     max-width: 550px;
     text-align: right; 
     padding-bottom: 40px; 
@@ -183,10 +183,14 @@ body {
 }
 
 .gallery-container, .contact-container {
-    z-index: 5;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.gallery-content, .contact-content {
+    position: relative;
+    z-index: 20;
 }
 
 .gallery-container h2, .contact-container h2 {
@@ -213,6 +217,7 @@ body {
         width: 32px !important;
         height: 20px !important;
         z-index: 1000 !important;
+        cursor: pointer !important;
     }
 
     .hamburger-btn span {
@@ -221,6 +226,20 @@ body {
         height: 3px !important;
         background-color: white !important;
         border-radius: 2px !important;
+        transition: transform 0.3s ease, opacity 0.3s ease !important; /* Smooth transitions for the X animation */
+    }
+
+    /* THE HAMBURGER TO 'X' ANIMATION FORMULAS */
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg) !important;
+    }
+
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
+        opacity: 0 !important;
+    }
+
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg) !important;
     }
 
     .nav-menu {
@@ -257,7 +276,8 @@ body {
     .text-blur-wrapper { max-width: 100% !important; padding: 40px 20px !important; }
     .welcome-container h1 { font-size: 46px !important; }
     .welcome-container .subtext { font-size: 13px !important; }
-    .about-container { padding: 0 24px !important; justify-content: center !important; margin-top: 12vh !important; margin-top: 12vh !important; }
+    
+    .about-container { padding: 0 24px !important; justify-content: center !important; margin-top: 12vh !important; }
     .about-content { text-align: center !important; }
     .about-content h2 { font-size: 46px !important; }
     .about-content p { font-size: 13px !important; }
