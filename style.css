@@ -40,7 +40,7 @@ body {
 }
 
 /* ==========================================================================
-   3. BACKGROUND MEDIA & FIXED LAYER STACKING
+   3. BACKGROUND MEDIA & HIGH-FIDELITY LAYER STACKING
    ========================================================================== */
 .section-bg-media {
     position: absolute;
@@ -66,12 +66,14 @@ body {
     z-index: 2;
 }
 
-/* PHYSICAL TRANSITION SEAM OVERLAY */
+/* HIGH-QUALITY TRANSITION SEAM OVERLAY */
 .global-transition-seam {
     width: 100vw;
-    height: 25vh; /* Standard design footprint size */
+    height: 50vh; /* Expanded height to prevent compressed color steps */
+    margin-top: -25vh; /* Centers the expanded strip perfectly on the line between sections */
+    margin-bottom: -25vh;
     position: relative;
-    z-index: 10; /* Locked on top so video layers cannot bleed through */
+    z-index: 10; /* Locked over videos so they cannot cut it off */
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -80,7 +82,12 @@ body {
 .global-transition-seam img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill; /* Allows the transparent gradient to stretch naturally over the full seam zone */
+    
+    /* Hardware Rendering & Image Quality Stabilization Engine */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* Activates GPU acceleration to keep gradient rendering pristine on scroll */
 }
 
 /* ==========================================================================
