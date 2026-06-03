@@ -15,7 +15,7 @@ html {
 
 body {
     color: white;
-    background-color: #0b0e1a;
+    background-color: #0b0e1a; /* Matches your exact baseline ambient shadow color */
     overflow-x: hidden;
     width: 100%;
 }
@@ -40,7 +40,7 @@ body {
 }
 
 /* ==========================================================================
-   3. BACKGROUND MEDIA & LAYER STACKING (FIXED SEAM)
+   3. BACKGROUND MEDIA & ULTRA-SMOOTH LAYER STACKING
    ========================================================================== */
 .section-bg-media {
     position: absolute;
@@ -48,7 +48,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Kept low so transition image stays on top */
+    z-index: 1; 
     pointer-events: none;
 }
 
@@ -66,24 +66,29 @@ body {
     z-index: 2;
 }
 
-/* STANDALONE TRANSITION SEAM */
-/* This forces the PNG to stay on top of the videos while you scroll past it */
+/* ULTRA-SMOOTH TRANSITION SEAM BLOCK */
 .global-transition-seam {
     width: 100vw;
-    height: 25vh; /* Height of your shadow gradient blend space */
-    margin-top: -12.5vh; /* Centers it perfectly on the line between sections */
-    margin-bottom: -12.5vh;
+    height: 50vh; /* Increased from 25vh to 50vh to give the PNG gradient massive room to spread out */
+    margin-top: -25vh; /* Centers the expanded blend channel cleanly on the seam line */
+    margin-bottom: -25vh;
     position: relative;
-    z-index: 10; /* High index so Background.webm cannot overlap it */
+    z-index: 10; 
     pointer-events: none;
     display: flex;
     align-items: center;
+    background-color: transparent;
 }
 
 .global-transition-seam img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill; /* Stretches the asset gracefully to match the expanded blend track */
+    
+    /* Anti-Banding and Performance Rendering Filters */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* Hardware accelerates the element to stop clipping errors during scrolling */
 }
 
 /* ==========================================================================
