@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=53">
+    <link rel="stylesheet" href="style.css?v=55">
 </head>
 <body>
 
+    <!-- FIXED NAVBAR NAVIGATION -->
     <header class="navbar">
         <div class="logo">Blairsama</div>
         
@@ -26,8 +27,10 @@
         </nav>
     </header>
 
+    <!-- MAIN VERTICAL SNAP SCROLLER -->
     <main class="scroll-container">
         
+        <!-- SECTION 1: HOME (Mountains + Sky Webm) -->
         <section id="home" class="page-section welcome-container">
             <div class="home-bg-container">
                 <video class="video-background" autoplay loop muted playsinline>
@@ -46,6 +49,7 @@
             </div>
         </section>
 
+        <!-- SECTION 2: ABOUT ME (Pure Underwater Webm) -->
         <section id="about" class="page-section about-container">
             <div class="about-bg-container">
                 <video class="video-background" autoplay loop muted playsinline>
@@ -64,6 +68,7 @@
             </div>
         </section>
 
+        <!-- SECTION 3: GALLERY PLACEHOLDER -->
         <section id="gallery" class="page-section gallery-container">
             <div class="gallery-content">
                 <h2>GALLERY</h2>
@@ -71,6 +76,7 @@
             </div>
         </section>
 
+        <!-- SECTION 4: CONTACT PLACEHOLDER -->
         <section id="contact" class="page-section contact-container">
             <div class="contact-content">
                 <h2>CONTACT</h2>
@@ -79,6 +85,52 @@
         </section>
 
     </main>
+
+    <!-- AUTOMATIC SCROLL AND HIGHLIGHT SCRIPT -->
+    <script>
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Intercepts normal browser jump
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Pulls the snapped layout view straight to your anchor point smoothly
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                // Close responsive hamburger drawer automatically upon selection
+                const checkbox = document.getElementById('menu-toggle');
+                if (checkbox) checkbox.checked = false;
+            });
+        });
+
+        // Tracks current panel depth to switch navbar 'active' color indicators
+        const scrollContainer = document.querySelector('.scroll-container');
+        const sections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        scrollContainer.addEventListener('scroll', () => {
+            let currentSectionId = "home"; // Fallback to safe default
+            const containerHeight = scrollContainer.clientHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                // Triggers structural highlight change once half the screen area shifts sections
+                if (scrollContainer.scrollTop >= (sectionTop - containerHeight / 2)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
