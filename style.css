@@ -15,7 +15,7 @@ html {
 
 body {
     color: white;
-    background-color: #0b0e1a; /* Matches your exact baseline ambient shadow color */
+    background-color: #0b0e1a;
     overflow-x: hidden;
     width: 100%;
 }
@@ -40,7 +40,7 @@ body {
 }
 
 /* ==========================================================================
-   3. BACKGROUND MEDIA & ULTRA-SMOOTH LAYER STACKING
+   3. BACKGROUND MEDIA & FIXED LAYER STACKING
    ========================================================================== */
 .section-bg-media {
     position: absolute;
@@ -48,7 +48,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; 
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -66,29 +66,21 @@ body {
     z-index: 2;
 }
 
-/* ULTRA-SMOOTH TRANSITION SEAM BLOCK */
+/* PHYSICAL TRANSITION SEAM OVERLAY */
 .global-transition-seam {
     width: 100vw;
-    height: 50vh; /* Increased from 25vh to 50vh to give the PNG gradient massive room to spread out */
-    margin-top: -25vh; /* Centers the expanded blend channel cleanly on the seam line */
-    margin-bottom: -25vh;
+    height: 25vh; /* Standard design footprint size */
     position: relative;
-    z-index: 10; 
+    z-index: 10; /* Locked on top so video layers cannot bleed through */
     pointer-events: none;
     display: flex;
     align-items: center;
-    background-color: transparent;
 }
 
 .global-transition-seam img {
     width: 100%;
     height: 100%;
-    object-fit: fill; /* Stretches the asset gracefully to match the expanded blend track */
-    
-    /* Anti-Banding and Performance Rendering Filters */
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    transform: translateZ(0); /* Hardware accelerates the element to stop clipping errors during scrolling */
+    object-fit: cover;
 }
 
 /* ==========================================================================
