@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=59">
+    <link rel="stylesheet" href="style.css?v=61">
 </head>
 <body>
 
@@ -26,28 +26,17 @@
         </nav>
     </header>
 
-    <div class="fixed-bg-wrapper">
-        <div id="bg-home" class="bg-layer active">
-            <video class="video-background" autoplay loop muted playsinline>
-                <source src="Background.webm" type="video/webm">
-            </video>
-            <img src="mountains.png" class="mountains-layer" alt="Mountains">
-        </div>
-
-        <div id="bg-transition-strip" class="transition-strip">
-            <img src="transition.png" alt="Transition Divider">
-        </div>
-
-        <div id="bg-about" class="bg-layer">
-            <video class="video-background" autoplay loop muted playsinline>
-                <source src="underwater.webm" type="video/webm">
-            </video>
-        </div>
-    </div>
-
     <main class="scroll-container">
         
         <section id="home" class="page-section welcome-container">
+            <div class="section-bg-media">
+                <video class="video-background" autoplay loop muted playsinline>
+                    <source src="Background.webm" type="video/webm">
+                </video>
+                <img src="mountains.png" class="mountains-layer" alt="Mountains">
+                <div class="bottom-gradient-fade"></div>
+            </div>
+
             <div class="text-blur-wrapper">
                 <h1>WELCOME</h1>
                 <p class="subtext">
@@ -58,6 +47,15 @@
         </section>
 
         <section id="about" class="page-section about-container">
+            <div class="section-bg-media">
+                <div class="seamless-transition-header">
+                    <img src="transition.png" alt="Transition Strip">
+                </div>
+                <video class="video-background" autoplay loop muted playsinline>
+                    <source src="underwater.webm" type="video/webm">
+                </video>
+            </div>
+
             <div class="about-content">
                 <h2>ABOUT ME</h2>
                 <p>
@@ -85,7 +83,7 @@
     </main>
 
     <script>
-        // Smoothly glide viewport to destination targets on click
+        // Smoothly scroll down the page to targets on link click
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -104,39 +102,15 @@
             });
         });
 
-        // Dynamic Background Transition Controller
+        // Sync header active highlights with overall scroll depth progress
         const sections = document.querySelectorAll('.page-section');
         const navLinks = document.querySelectorAll('.nav-menu a');
-        
-        const bgHome = document.getElementById('bg-home');
-        const bgAbout = document.getElementById('bg-about');
-        const transitionStrip = document.getElementById('bg-transition-strip');
 
         window.addEventListener('scroll', () => {
+            let currentSectionId = "home";
             const scrollPos = window.scrollY || document.documentElement.scrollTop;
             const windowHeight = window.innerHeight;
-            
-            // --- PARALLAX BACKGROUND CROSSFADE SYSTEM ---
-            // Calculate progress moving from section 1 (Home) to section 2 (About Me)
-            let progressToAbout = scrollPos / windowHeight;
-            progressToAbout = Math.max(0, Math.min(1, progressToAbout)); // Clamp value between 0 and 1
 
-            // Home environment fades back cleanly
-            bgHome.style.opacity = 1 - progressToAbout;
-            
-            // Underwater environment fades up elegantly to swallow previous layers
-            bgAbout.style.opacity = progressToAbout;
-            
-            // Your PNG transition strip peaks right in the center of the scroll gap
-            if (scrollPos > 0 && scrollPos < windowHeight) {
-                transitionStrip.style.opacity = Math.sin(progressToAbout * Math.PI); // Perfect curve peak
-                transitionStrip.style.transform = `translateY(${(1 - progressToAbout) * 50}px)`; 
-            } else {
-                transitionStrip.style.opacity = 0;
-            }
-
-            // --- NAVBAR LINK HIGHLIGHTER ---
-            let currentSectionId = "home";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 if (scrollPos >= (sectionTop - windowHeight / 2)) {
