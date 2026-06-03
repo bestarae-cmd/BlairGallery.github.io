@@ -36,11 +36,11 @@ body {
     position: relative;
     display: flex;
     overflow: hidden;
-    background: transparent; /* Allows visual media depth to emerge clearly */
+    background: transparent;
 }
 
 /* ==========================================================================
-   3. FIXED PARALLAX MEDIA ATTACHMENTS & IMAGE SEAMS
+   3. BACKGROUND MEDIA & LAYER STACKING (FIXED SEAM)
    ========================================================================== */
 .section-bg-media {
     position: absolute;
@@ -48,7 +48,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 1; /* Kept low so transition image stays on top */
     pointer-events: none;
 }
 
@@ -63,32 +63,24 @@ body {
 }
 
 .mountains-layer {
-    z-index: 3;
+    z-index: 2;
 }
 
-/* Pure black atmospheric ambient drop gradient at home section bottom edge */
-.bottom-gradient-fade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 25vh;
-    background: linear-gradient(to bottom, transparent 0%, #0b0e1a 100%);
-    z-index: 4;
-}
-
-/* Places your transition PNG directly along the top of the About section */
-.seamless-transition-header {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* STANDALONE TRANSITION SEAM */
+/* This forces the PNG to stay on top of the videos while you scroll past it */
+.global-transition-seam {
     width: 100vw;
-    height: 20vh; /* Adjust height scaling factor to fit your style preferences */
-    z-index: 5;
-    transform: translateY(-50%); /* Centers the strip perfectly over the seam */
+    height: 25vh; /* Height of your shadow gradient blend space */
+    margin-top: -12.5vh; /* Centers it perfectly on the line between sections */
+    margin-bottom: -12.5vh;
+    position: relative;
+    z-index: 10; /* High index so Background.webm cannot overlap it */
+    pointer-events: none;
+    display: flex;
+    align-items: center;
 }
 
-.seamless-transition-header img {
+.global-transition-seam img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -136,7 +128,7 @@ body {
    5. CONTENT DISPLAY CARDS (COMPUTERS)
    ========================================================================== */
 .welcome-container {
-    z-index: 10;
+    z-index: 5;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
@@ -167,7 +159,7 @@ body {
 }
 
 .about-container {
-    z-index: 10;
+    z-index: 5;
     justify-content: flex-end; 
     align-items: center;
     padding-right: 120px;
@@ -194,7 +186,7 @@ body {
 }
 
 .gallery-container, .contact-container {
-    z-index: 10;
+    z-index: 5;
     justify-content: center;
     align-items: center;
     text-align: center;
