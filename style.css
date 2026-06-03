@@ -8,25 +8,45 @@
     font-family: 'Arial', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+    overflow: hidden; /* Strips double viewport-wrapper scrollbars */
+}
+
 body {
     color: white;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
     background-color: #0b0e1a;
 }
 
 /* ==========================================================================
-   2. BACKGROUND SCENERY (FORCED FULL SCREEN COVER)
+   2. SNAP SCROLLER STRUCTURE & SECTIONS
    ========================================================================== */
-.scenery-container {
-    position: fixed;
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory; /* Snaps screens clean on scroll release */
+}
+
+.page-section {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start; /* Locks viewport view straight to section start */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+/* ==========================================================================
+   3. BACKGROUND SCENERY (SECTION-BOUND TRANSITIONS)
+   ========================================================================== */
+.page-section .scenery-container {
+    position: absolute; /* Swapped from fixed so environments transition per slide */
     top: 0;
     left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -1;
+    z-index: 1; /* Positioned directly behind section typographic values */
     overflow: hidden;
 }
 
@@ -37,24 +57,27 @@ body {
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important; /* This strictly forces it to fill the entire mobile display */
+    object-fit: cover !important; 
     pointer-events: none;
 }
 
 .video-background {
-    z-index: 0;
-}
-
-.mountains-layer {
     z-index: 2;
 }
 
+.mountains-layer {
+    z-index: 3;
+}
+
 /* ==========================================================================
-   3. DESKTOP NAVIGATION (COMPUTERS)
+   4. FIXED HEADER NAVIGATION 
    ========================================================================== */
 .navbar {
-    position: relative;
-    z-index: 10;
+    position: fixed; /* Locked on top globally over scrolling screens */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,20 +107,20 @@ body {
 }
 
 /* ==========================================================================
-   4. DESKTOP CONTENT (COMPUTERS)
+   5. INTERFACE DESIGN LAYOUT CARDS
    ========================================================================== */
+
+/* HOME VIEWPORT PANELS */
 .welcome-container {
-    position: relative;
     z-index: 5;
-    flex: 1;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
-    margin-top: -40px;
 }
 
 .text-blur-wrapper {
+    position: relative;
+    z-index: 10;
     background-image: url('shadow.png');
     background-size: 100% 100%;
     background-position: center;
@@ -106,7 +129,6 @@ body {
     border: none;
     box-shadow: none;
     border-radius: 0;
-    
     display: inline-block;
     max-width: 540px;
     padding: 60px 80px; 
@@ -125,8 +147,51 @@ body {
     color: rgba(255, 255, 255, 0.85); 
 }
 
+/* ABOUT ME VIEWPORT PANELS (Safer Layout Structure) */
+.about-container {
+    justify-content: flex-end; /* Pushes content right */
+    align-items: center;
+    padding-right: 120px;
+}
+
+.about-content {
+    position: relative;
+    z-index: 10;
+    max-width: 550px;
+    text-align: right; /* Aligned right to match image_f67ddc.jpg */
+    padding-bottom: 60px; /* Buffer height so text clears bottom anchor webm assets */
+}
+
+.about-content h2 {
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* DEFAULT WRAPPERS FOR REMAINING SLIDES */
+.gallery-container, .contact-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.gallery-container h2, .contact-container h2 {
+    position: relative;
+    z-index: 10;
+    font-size: 60px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
 /* ==========================================================================
-   5. MOBILE RESPONSIVE LAYOUT (< 768px)
+   6. MOBILE RESPONSIVE LAYOUT (< 768px)
    ========================================================================== */
 @media screen and (max-width: 768px) {
     .navbar {
@@ -137,9 +202,8 @@ body {
         width: 100% !important;
     }
 
-    /* Makes sure the scenery stays 100% full height and cover layout */
-    .video-background,
-    .mountains-layer {
+    .page-section .scenery-container .video-background,
+    .page-section .scenery-container .mountains-layer {
         object-fit: cover !important; 
         width: 100% !important;
         height: 100% !important;
@@ -166,7 +230,6 @@ body {
         transition: all 0.3s ease !important;
     }
 
-    /* Slides completely over the top layer */
     .nav-menu {
         position: fixed !important;
         top: 0 !important;
@@ -204,7 +267,7 @@ body {
         transform: translateY(-9px) rotate(-45deg) !important;
     }
 
-    /* Sets the welcome wrapper high in the night sky */
+    /* Mobile overrides for Home panel */
     .welcome-container {
         padding-left: 0 !important;
         padding: 0 24px !important;
@@ -215,7 +278,6 @@ body {
         text-align: center !important;
         width: 100% !important;
         margin-top: 12vh !important; 
-        z-index: 1 !important; 
     }
 
     .text-blur-wrapper {
@@ -242,5 +304,28 @@ body {
         line-height: 1.5 !important;
         text-align: center !important;
         max-width: 300px !important;
+    }
+
+    /* Mobile overrides for About Me panel */
+    .about-container {
+        padding: 0 24px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        margin-top: 12vh !important;
+    }
+
+    .about-content {
+        text-align: center !important;
+        padding-bottom: 0 !important;
+    }
+
+    .about-content h2 {
+        font-size: 46px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .about-content p {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
     }
 }
