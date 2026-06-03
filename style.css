@@ -272,23 +272,23 @@ body {
         right: 0 !important; 
     }
 
-    /* WELCOME LAYOUT FIXED MOBILE MIDDLE CENTER */
+    /* WELCOME LAYOUT: Positioned higher up to clear the background moon */
     .welcome-container {
-        padding-left: 0 !important; /* Clear out desktop layout shifts */
+        padding-left: 0 !important;
         padding-right: 0 !important;
         padding: 0 24px !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; /* Vertical focus center */
-        align-items: center !important;     /* Horizontal content center */
+        justify-content: flex-start !important; /* Pulls content toward the top half */
+        align-items: center !important;        /* Keeps horizontal centering locked */
     }
 
     .text-blur-wrapper { 
-        display: block !important;         /* Drop baseline inline traits */
+        display: block !important;
         max-width: 100% !important; 
         padding: 40px 20px !important; 
-        text-align: center !important;      /* Centers text lines inside shadow card */
-        margin: 0 auto !important;          /* Anchors shadow block layout to center */
+        text-align: center !important;
+        margin: 20vh auto 0 auto !important; /* Generates a 20% viewport gap from the navbar */
     }
     
     .welcome-container h1 { 
@@ -303,7 +303,7 @@ body {
     
     .about-container { 
         padding: 0 24px !important; 
-        padding-right: 0 !important; /* Clear out desktop layouts */
+        padding-right: 0 !important;
         justify-content: center !important; 
         align-items: center !important;
     }
