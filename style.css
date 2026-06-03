@@ -15,7 +15,7 @@ html {
 
 body {
     color: white;
-    background-color: #0b0e1a; /* Base dark background color everything fades into */
+    background-color: #0b0e1a; /* The shared background color both videos melt into */
     overflow-x: hidden;
     width: 100%;
 }
@@ -40,7 +40,7 @@ body {
 }
 
 /* ==========================================================================
-   3. BACKGROUND MEDIA & CSS MASK GRADIENT ENGINE
+   3. BACKGROUND MEDIA & DUAL MASK FADE CONFIGURATIONS
    ========================================================================== */
 .section-bg-media {
     position: absolute;
@@ -66,9 +66,14 @@ body {
     z-index: 2;
 }
 
-/* THE MAGIC CSS MASK */
-/* This makes the top 30% of the underwater video fade out perfectly into nothingness */
-.video-fade-mask {
+/* HOME BG: Fades smoothly to transparent at the bottom 30% */
+.video-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, transparent 100%);
+}
+
+/* ABOUT BG: Fades smoothly from transparent at the top 30% */
+.video-fade-top {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%);
     mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%);
 }
