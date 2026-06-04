@@ -64,62 +64,17 @@
 
         <section id="gallery" class="page-section gallery-container">
             <div class="gallery-content">
-                <h2>GALLERY</h2>
-                <p>Your interactive showcase items will go here.</p>
-            </div>
-        </section>
-
-        <section id="contact" class="page-section contact-container">
-            <div class="contact-content">
-                <h2>CONTACT</h2>
-                <p>Let's connect.</p>
-            </div>
-        </section>
-
-    </main>
-
-    <script>
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
                 
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                
-                const checkbox = document.getElementById('menu-toggle');
-                if (checkbox) checkbox.checked = false;
-            });
-        });
+                <h2 class="gallery-title">My Gallery</h2>
+                <p class="gallery-subtitle">Explore my journey!</p>
 
-        const sections = document.querySelectorAll('.page-section');
-        const navLinks = document.querySelectorAll('.nav-menu a');
+                <div class="gallery-tabs">
+                    <button class="tab-btn active" data-target="designs">DESIGNS</button>
+                    <button class="tab-btn" data-target="unseen">UNSEEN</button>
+                    <button class="tab-btn" data-target="programs">PROGRAMS</button>
+                </div>
 
-        window.addEventListener('scroll', () => {
-            let currentSectionId = "home";
-            const scrollPos = window.scrollY || document.documentElement.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollPos >= (sectionTop - windowHeight / 2)) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-
-</body>
-</html>
+                <div class="gallery-grid">
+                    
+                    <div class="gallery-card" data-category="designs">
+                        <div class="card
