@@ -109,6 +109,7 @@
         });
 
        <script>
+     <script>
         // ==========================================================================
         // 1. ACTIVE NAV TRACKER FOR SCROLLING
         // ==========================================================================
@@ -136,7 +137,7 @@
         });
 
         // ==========================================================================
-        // 2. YOUR CREATOR GALLERY MANAGER (MANAGE LINKS HERE!)
+        // 2. YOUR CREATOR GALLERY MANAGER & UNIFIED TAB SYSTEM
         // ==========================================================================
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -174,7 +175,7 @@
                 { title: "UNSEEN WORK 6", category: "unseen", url: "https://youtu.be/ejhmKBJR8aY?si=jV9tIg5vB37iARhR" },
                 { title: "UNSEEN WORK 7", category: "unseen", url: "https://youtu.be/XKRxIl0Ypmc?si=N1-vTCOYZe1WgscT" },
 
-                // --- PROGRAMS CATEGORY (Handles software cards beautifully) ---
+                // --- PROGRAMS CATEGORY ---
                 { title: "ALIGHT MOTION", category: "programs", url: "#" },
                 { title: "AFTER EFFECTS", category: "programs", url: "#" },
                 { title: "PHOTOSHOP", category: "programs", url: "#" }
@@ -184,7 +185,7 @@
             const gridContainer = document.getElementById("dynamic-gallery-grid");
             const tabs = document.querySelectorAll(".tab-btn");
 
-            // Utility function to extract the 11-character YouTube video ID
+            // Utility function to extract clean 11-character YouTube ID
             function getYouTubeId(url) {
                 if (!url || url === "#") return null;
                 const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -192,32 +193,26 @@
                 return (match && match[2].length === 11) ? match[2] : null;
             }
 
-            // Function to build and show items based on selected target tab
+            // CORE RENDERING ENGINE
             window.renderGallery = function(filterTarget = "designs") {
-                gridContainer.innerHTML = ""; // Clear current layout views
+                if (!gridContainer) return;
+                gridContainer.innerHTML = ""; 
 
                 galleryData.forEach(item => {
-                    // Filter check condition logic
                     if (filterTarget !== "all" && item.category !== filterTarget) return;
 
                     const videoId = getYouTubeId(item.url);
-                    
-                    // FIXED: Uses 'hqdefault.jpg' fallback directly so thumbnails never break or show a 404 error
                     const thumbnailUrl = videoId 
                         ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
                         : 'rgba(255,255,255,0.05)';
 
-                    // Determine content button action based on link type
                     let actionButtonHTML = "";
                     if (videoId) {
-                        // If it's a video, render custom WATCH HERE popup trigger button
                         actionButtonHTML = `<button onclick="watchHere(event, '${item.url}')" class="card-btn" style="cursor: pointer;">WATCH HERE</button>`;
                     } else {
-                        // Software/Program category tabs default look
                         actionButtonHTML = `<span class="card-btn" style="opacity: 0.5; background: transparent; border-color: transparent;">SOFTWARE</span>`;
                     }
 
-                    // Construct the dynamic HTML template structure string
                     const cardHTML = `
                         <div class="gallery-card" style="opacity: 0; transform: scale(0.95);">
                             <div class="card-media-wrapper">
@@ -233,11 +228,10 @@
                         </div>
                     `;
 
-                    // Inject structure elements into the DOM track grid framework
                     gridContainer.insertAdjacentHTML("beforeend", cardHTML);
                 });
 
-                // Smooth sequential animation frame introduction load transition
+                // Staggered layout cascading animation load intro
                 setTimeout(() => {
                     const dynamicCards = gridContainer.querySelectorAll(".gallery-card");
                     dynamicCards.forEach((card, index) => {
@@ -245,54 +239,78 @@
                             card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
                             card.style.opacity = "1";
                             card.style.transform = "scale(1)";
-                        }, index * 50); // Clean cascading delay staggered layout effect
+                        }, index * 40); 
                     });
                 }, 50);
             }
 
-            // Tab Navigation Event Bind Trackers
+            // This fallback function ensures tabs navigate correctly if tied to "switchTab" values in HTML
+            window.switchTab = function(targetCategory) {
+                tabs.forEach(tab => {
+                    tab.classList.remove("active");
+                    const onClickAttr = tab.getAttribute("onclick") || "";
+                    if (onClickAttr.includes(targetCategory) || tab.getAttribute("data-target") === targetCategory) {
+                        tab.classList.add("active");
+                    }
+                });
+                renderGallery(targetCategory);
+            }
+
+            // Bind click listeners natively to tabs using data-target attributes
             tabs.forEach(tab => {
                 tab.addEventListener("click", () => {
                     tabs.forEach(t => t.classList.remove("active"));
                     tab.classList.add("active");
-
-                    const target = tab.getAttribute("data-target");
+                    const target = tab.getAttribute("data-target") || "designs";
                     renderGallery(target);
                 });
             });
 
-            // Initial Core Run Trigger On Initial Dom Loading Focus
+            // Initial load trigger sequence
             renderGallery("designs");
         });
 
         // ==========================================================================
-        // 3. CINEMATIC VIDEO POPUP SYSTEM CONTROLLER
+        // 3. CINEMATIC VIDEO POPUP SYSTEM CONTROLLER (FIXED EXTRACTOR & MOUNT)
         // ==========================================================================
         function watchHere(e, videoUrl) {
-            e.preventDefault(); 
+            if(e) e.preventDefault(); 
             
             let videoId = "";
             if (videoUrl.includes("youtu.be/")) {
-                videoId = videoUrl.split("youtu.be/")[1].split("?")[0];
+                let pathParts = videoUrl.split("youtu.be/")[1];
+                videoId = pathParts.split("?")[0];
             } else if (videoUrl.includes("v=")) {
                 videoId = videoUrl.split("v=")[1].split("&")[0];
             }
 
             if (videoId) {
-                const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                document.getElementById("popup-iframe").src = embedUrl;
-                document.getElementById("video-popup").classList.add("modal-active");
-                document.body.style.overflow = "hidden"; // Blocks background scroll while overlay is open
+                const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                const iframe = document.getElementById("popup-iframe");
+                const popup = document.getElementById("video-popup");
+                
+                if(iframe && popup) {
+                    iframe.src = embedUrl;
+                    popup.classList.add("modal-active");
+                    document.body.style.overflow = "hidden"; 
+                }
+            } else {
+                console.error("Could not extract video ID from:", videoUrl);
             }
         }
 
         function closeVideo() {
-            document.getElementById("video-popup").classList.remove("modal-active");
-            document.getElementById("popup-iframe").src = ""; // Clear iframe source to kill ongoing video audio streams
-            document.body.style.overflow = "auto"; // Re-enable window scroll mechanics
+            const iframe = document.getElementById("popup-iframe");
+            const popup = document.getElementById("video-popup");
+            
+            if(popup && iframe) {
+                popup.classList.remove("modal-active");
+                iframe.src = ""; 
+                document.body.style.overflow = "auto"; 
+            }
         }
 
-        // Close on clicking the blur background masking space
+        // Setup background dim space click listener to close out
         document.addEventListener("DOMContentLoaded", () => {
             const popup = document.getElementById("video-popup");
             if (popup) {
@@ -302,7 +320,8 @@
             }
         });
     </script>
-<div id="video-popup" class="video-modal-overlay">
+
+    <div id="video-popup" class="video-modal-overlay">
         <div class="modal-box">
             <button class="modal-close-btn" onclick="closeVideo()">&times;</button>
             <div class="modal-video-wrapper">
@@ -310,5 +329,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
