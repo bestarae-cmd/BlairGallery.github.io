@@ -135,32 +135,46 @@
         // 3. YOUR CREATOR GALLERY MANAGER (MANAGE LINKS HERE!)
         document.addEventListener("DOMContentLoaded", () => {
             
-            // ==========================================
-            // 📝 YOUR DATA LIST: EDIT, ADD, OR REMOVE LINKS HERE
-            // ==========================================
+           // ========================================================
+            // 📝 YOUR COMPLETE LOCAL PORTFOLIO DATASTREAM
+            // ========================================================
             const galleryData = [
-                {
-                    title: "YOUTUBE VIDEO TITLE 1",
-                    category: "designs",
-                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                },
-                {
-                    title: "PROJECT TWO TITLE",
-                    category: "designs",
-                    url: "https://youtu.be/dQw4w9WgXcQ"
-                },
-                {
-                    title: "EXCLUSIVE UNRELEASED",
-                    category: "unseen",
-                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                },
-                {
-                    title: "MY RENDER PROGRAM WORK",
-                    category: "programs",
-                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                }
+                // --- DESIGNS CATEGORY ---
+                { title: "DESIGN PROJECT 1", category: "designs", url: "https://youtu.be/4ssufDvk0iM?si=Fz6HRnjxn6qEZy4T" },
+                { title: "DESIGN PROJECT 2", category: "designs", url: "https://youtu.be/99vLIXzjras?si=9-NiS0S6CLrRYTgb" },
+                { title: "DESIGN PROJECT 3", category: "designs", url: "https://youtu.be/bfrU9k7z4cY?si=_3alf0h7FK4_tzr_" },
+                { title: "DESIGN PROJECT 4", category: "designs", url: "https://youtu.be/0I6YDcfgZLg?si=I-W5N1ATAbm4grT2" },
+                { title: "DESIGN PROJECT 5", category: "designs", url: "https://youtu.be/xTSv0T0vPnQ?si=aqajn4JByA3zylQA" },
+                { title: "DESIGN PROJECT 6", category: "designs", url: "https://youtu.be/Xa5P3Y5kltg?si=tqmUvgt3AEdXYps5" },
+                { title: "DESIGN PROJECT 7", category: "designs", url: "https://youtu.be/ilphaaIHipw?si=nuibFtfFHFFSMv6U" },
+                { title: "DESIGN PROJECT 8", category: "designs", url: "https://youtu.be/lv8Y0o6XFuA?si=84ZY2cqCj5YZUPl7" },
+                { title: "DESIGN PROJECT 9", category: "designs", url: "https://youtu.be/osHmdOqOgJ8?si=RfUXcqCnGEQvyzNm" },
+                { title: "DESIGN PROJECT 10", category: "designs", url: "https://youtu.be/SRGOY246gIs?si=cyQumG8MTflqmtug" },
+                { title: "DESIGN PROJECT 11", category: "designs", url: "https://youtu.be/xA-wb9Vqnpo?si=h7t0RFM2JI2lyvVV" },
+                { title: "DESIGN PROJECT 12", category: "designs", url: "https://youtu.be/KMsvkk2QwNM?si=la-Zf329g3CPaqtg" },
+                { title: "DESIGN PROJECT 13", category: "designs", url: "https://youtu.be/RmIcc3eYcjs?si=tZfzWjYVC-k5ZTt9" },
+                { title: "DESIGN PROJECT 14", category: "designs", url: "https://youtu.be/ERMqNa-CYjw?si=f9Vkc5gGG44uliuK" },
+                { title: "DESIGN PROJECT 15", category: "designs", url: "https://youtu.be/KLFskCWzA7M?si=jjgzp3Ff0k3lEGY4" },
+                { title: "DESIGN PROJECT 16", category: "designs", url: "https://youtu.be/X3ovXFzaCmk?si=8flO0SkQuY11C6Mz" },
+                { title: "DESIGN PROJECT 17", category: "designs", url: "https://youtu.be/BaosIIVOR3E?si=uRsNR6hhF3rItvbE" },
+                { title: "DESIGN PROJECT 18", category: "designs", url: "https://youtu.be/1hH1k_tmH8E?si=LMgyZhzDq25iXQAG" },
+                { title: "DESIGN PROJECT 19", category: "designs", url: "https://youtu.be/P5jUQljY-lg?si=xpr0Vf7XyN8FjKFN" },
+
+                // --- UNSEEN CATEGORY ---
+                { title: "UNSEEN WORK 1", category: "unseen", url: "https://youtu.be/E6g3r8RCccQ?si=GXZNy7ABraXA6PXB" },
+                { title: "UNSEEN WORK 2", category: "unseen", url: "https://youtu.be/PgbJN7NRe8M?si=mmPU2HDKKm_L-0Os" },
+                { title: "UNSEEN WORK 3", category: "unseen", url: "https://youtu.be/2zp0bK6iMU0?si=QD4JJ-Chu2oaZB-B" },
+                { title: "UNSEEN WORK 4", category: "unseen", url: "https://youtu.be/-y9w08WJrCs?si=YwGFHHHRuVstpojN" },
+                { title: "UNSEEN WORK 5", category: "unseen", url: "https://youtu.be/8DKYwZggXhY?si=DKki1VL-pizpI2nJ" },
+                { title: "UNSEEN WORK 6", category: "unseen", url: "https://youtu.be/ejhmKBJR8aY?si=jV9tIg5vB37iARhR" },
+                { title: "UNSEEN WORK 7", category: "unseen", url: "https://youtu.be/XKRxIl0Ypmc?si=N1-vTCOYZe1WgscT" },
+
+                // --- PROGRAMS CATEGORY (Handles software cards beautifully) ---
+                { title: "ALIGHT MOTION", category: "programs", url: "#" },
+                { title: "AFTER EFFECTS", category: "programs", url: "#" },
+                { title: "PHOTOSHOP", category: "programs", url: "#" }
             ];
-            // ==========================================
+            // ========================================================
 
             const gridContainer = document.getElementById("dynamic-gallery-grid");
             const tabs = document.querySelectorAll(".tab-btn");
