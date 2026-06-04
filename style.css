@@ -30,9 +30,10 @@ body {
     position: relative;
 }
 
+/* Base section rule ensures background videos stay locked to the viewport */
 .page-section {
     width: 100vw;
-    min-height: 100vh;   /* Changed from fixed height to min-height to prevent vertical cutting */
+    height: 100vh;   
     position: relative;
     display: flex;
     overflow: hidden;
@@ -110,7 +111,6 @@ body {
     flex-direction: column;
     justify-content: center;
     padding-left: 80px; 
-    height: 100vh; /* Keeps home section snapped precisely to viewport */
 }
 
 .text-blur-wrapper {
@@ -142,7 +142,6 @@ body {
     justify-content: flex-end; 
     align-items: center;
     padding-right: 120px;
-    height: 100vh; /* Keeps about section snapped precisely to viewport */
 }
 
 .about-content {
@@ -170,11 +169,11 @@ body {
 .gallery-container {
     justify-content: center;
     align-items: center;
-    padding: 160px 40px 140px 40px; /* Ample top padding clears previous sections */
+    padding: 160px 40px 140px 40px; 
+    height: auto;                     /* ONLY the gallery is allowed to expand naturally */
     min-height: 100vh;
-    height: auto;                   /* Let section stretch infinitely down with cards */
     position: relative;
-    z-index: 5;                     /* Keeps items neatly ordered over the backdrop gradient mask */
+    z-index: 5;                     
 }
 
 .gallery-content {
@@ -205,3 +204,23 @@ body {
 .gallery-tabs {
     display: flex;
     background: rgba(20, 24, 46, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 0;
+    cursor: pointer
