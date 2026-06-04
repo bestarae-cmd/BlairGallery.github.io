@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blairsama</title>
-    <link rel="stylesheet" href="style.css?v=69">
+    <link rel="stylesheet" href="style.css?v=70">
 </head>
 <body>
 
@@ -74,7 +74,166 @@
                     <button class="tab-btn" data-target="programs">PROGRAMS</button>
                 </div>
 
-                <div class="gallery-grid">
-                    
-                    <div class="gallery-card" data-category="designs">
-                        <div class="card
+                <div class="gallery-grid" id="dynamic-gallery-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section contact-container">
+            <div class="contact-content">
+                <h2>CONTACT</h2>
+                <p>Let's connect.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // 1. SMOOTH SCROLL & MENU RESET TACTICS
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                const checkbox = document.getElementById('menu-toggle');
+                if (checkbox) checkbox.checked = false;
+            });
+        });
+
+        // 2. ACTIVE NAV TRACKER FOR SCROLLING
+        const sections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        window.addEventListener('scroll', () => {
+            let currentSectionId = "home";
+            const scrollPos = window.scrollY || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollPos >= (sectionTop - windowHeight / 2)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 3. YOUR CREATOR GALLERY MANAGER (MANAGE LINKS HERE!)
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // ==========================================
+            // 📝 YOUR DATA LIST: EDIT, ADD, OR REMOVE LINKS HERE
+            // ==========================================
+            const galleryData = [
+                {
+                    title: "YOUTUBE VIDEO TITLE 1",
+                    category: "designs",
+                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                },
+                {
+                    title: "PROJECT TWO TITLE",
+                    category: "designs",
+                    url: "https://youtu.be/dQw4w9WgXcQ"
+                },
+                {
+                    title: "EXCLUSIVE UNRELEASED",
+                    category: "unseen",
+                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                },
+                {
+                    title: "MY RENDER PROGRAM WORK",
+                    category: "programs",
+                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                }
+            ];
+            // ==========================================
+
+            const gridContainer = document.getElementById("dynamic-gallery-grid");
+            const tabs = document.querySelectorAll(".tab-btn");
+
+            // Utility function to extract the 11-character YouTube video ID
+            function getYouTubeId(url) {
+                if (!url) return null;
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            }
+
+            // Function to build and show items based on selected target tab
+            function renderGallery(filterTarget = "designs") {
+                gridContainer.innerHTML = ""; // Clear current layout views
+
+                galleryData.forEach(item => {
+                    // Filter check condition logic
+                    if (filterTarget !== "all" && item.category !== filterTarget) return;
+
+                    const videoId = getYouTubeId(item.url);
+                    const thumbnailUrl = videoId 
+                        ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+                        : 'rgba(255,255,255,0.05)';
+
+                    // Construct the dynamic HTML template structure string
+                    const cardHTML = `
+                        <div class="gallery-card" style="opacity: 0; transform: scale(0.95);">
+                            <div class="card-media-wrapper">
+                                ${videoId 
+                                    ? `<img src="${thumbnailUrl}" alt="${item.title}">`
+                                    : `<div style="width:100%; height:100%; background:#1a1f36; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2);">Invalid Link</div>`
+                                }
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title">${item.title}</h3>
+                                <a href="${item.url}" target="_blank" class="card-btn">DIRECT TO YT</a>
+                            </div>
+                        </div>
+                    `;
+
+                    // Inject structure elements into the DOM track grid framework
+                    gridContainer.insertAdjacentHTML("beforeend", cardHTML);
+                });
+
+                // Smooth sequential animation frame introduction load transition
+                setTimeout(() => {
+                    const dynamicCards = gridContainer.querySelectorAll(".gallery-card");
+                    dynamicCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+                            card.style.opacity = "1";
+                            card.style.transform = "scale(1)";
+                        }, index * 50); // Clean cascading delay staggered layout effect
+                    });
+                }, 50);
+            }
+
+            // Tab Navigation Event Bind Trackers
+            tabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+
+                    const target = tab.getAttribute("data-target");
+                    renderGallery(target);
+                });
+            });
+
+            // Initial Core Run Trigger On Initial Dom Loading Focus
+            renderGallery("designs");
+        });
+    </script>
+
+</body>
+</html>
