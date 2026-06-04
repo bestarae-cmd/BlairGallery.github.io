@@ -88,8 +88,17 @@
 
     </main>
 
+    <div id="video-popup" class="video-modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="modal-wrapper-box" style="position: relative; width: 90%; max-width: 800px; aspect-ratio: 16/9; background: #000;">
+            <button onclick="closeVideo()" class="modal-close-trigger" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer;">&times;</button>
+            <iframe id="popup-iframe" src="" style="width: 100%; height: 100%; border: none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
-        // 1. SMOOTH SCROLL & MENU RESET TACTICS
+        // ==========================================================================
+        // 1. SMOOTH SCROLL & MENU RESET TACTICS + NAV TRACKER
+        // ==========================================================================
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -108,10 +117,6 @@
             });
         });
 
-       <script>
-        // ==========================================================================
-        // 1. ACTIVE NAV TRACKER FOR SCROLLING
-        // ==========================================================================
         const sections = document.querySelectorAll('.page-section');
         const navLinks = document.querySelectorAll('.nav-menu a');
 
@@ -136,13 +141,10 @@
         });
 
         // ==========================================================================
-        // 2. YOUR CREATOR GALLERY MANAGER & UNIFIED TAB SYSTEM (FIXED CLASSES)
+        // 2. CREATOR GALLERY MANAGER & TAB FILTERS
         // ==========================================================================
         document.addEventListener("DOMContentLoaded", () => {
             
-            // ========================================================
-            // 📝 YOUR COMPLETE LOCAL PORTFOLIO DATASTREAM
-            // ========================================================
             const galleryData = [
                 // --- DESIGNS CATEGORY ---
                 { title: "DESIGN PROJECT 1", category: "designs", url: "https://youtu.be/4ssufDvk0iM?si=Fz6HRnjxn6qEZy4T" },
@@ -179,7 +181,6 @@
                 { title: "AFTER EFFECTS", category: "programs", url: "#" },
                 { title: "PHOTOSHOP", category: "programs", url: "#" }
             ];
-            // ========================================================
 
             const gridContainer = document.getElementById("dynamic-gallery-grid");
             const tabs = document.querySelectorAll(".tab-btn");
@@ -201,22 +202,22 @@
                     const videoId = getYouTubeId(item.url);
                     const thumbnailUrl = videoId 
                         ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-                        : 'rgba(255,255,255,0.05)';
+                        : '';
 
                     let actionButtonHTML = "";
                     if (videoId) {
                         actionButtonHTML = `<button onclick="watchHere(event, '${item.url}')" class="card-btn" style="cursor: pointer;">WATCH HERE</button>`;
                     } else {
-                        actionButtonHTML = `<span class="card-btn" style="opacity: 0.5; background: transparent; border-color: transparent;">SOFTWARE</span>`;
+                        actionButtonHTML = `<span class="card-btn" style="opacity: 0.5; background: transparent; border-color: transparent; cursor: default;">SOFTWARE</span>`;
                     }
 
-                    // RESTORED YOUR ORIGINAL CSS CLASS NAMES: gallery-item-target & card-media-wrapper
+                    // MATCHED PERFECTLY TO YOUR EXISTING CSS GRID LAYOUT CLASS: "gallery-card"
                     const cardHTML = `
-                        <div class="gallery-item-target gallery-card" style="opacity: 0; transform: scale(0.95); display: flex;">
+                        <div class="gallery-card" style="opacity: 0; transform: scale(0.95); transition: opacity 0.4s ease, transform 0.4s ease;">
                             <div class="card-media-wrapper">
                                 ${videoId 
                                     ? `<img src="${thumbnailUrl}" alt="${item.title}">`
-                                    : `<div style="width:100%; height:100%; background:#1a1f36; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.4); font-weight: bold; font-size: 14px;">${item.title}</div>`
+                                    : `<div style="width:100%; height:100%; min-height: 150px; background:#1a1f36; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.4); font-weight: bold; font-size: 14px;">${item.title}</div>`
                                 }
                             </div>
                             <div class="card-info">
@@ -229,28 +230,16 @@
                     gridContainer.insertAdjacentHTML("beforeend", cardHTML);
                 });
 
+                // Smooth fade-in cascade animation
                 setTimeout(() => {
                     const dynamicCards = gridContainer.querySelectorAll(".gallery-card");
                     dynamicCards.forEach((card, index) => {
                         setTimeout(() => {
-                            card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
                             card.style.opacity = "1";
                             card.style.transform = "scale(1)";
-                        }, index * 40); 
+                        }, index * 30); 
                     });
                 }, 50);
-            }
-
-            // Fallback connecting your HTML tab element triggers directly
-            window.switchTab = function(targetCategory) {
-                tabs.forEach(tab => {
-                    tab.classList.remove("active");
-                    const onClickAttr = tab.getAttribute("onclick") || "";
-                    if (onClickAttr.includes(targetCategory) || tab.getAttribute("data-target") === targetCategory) {
-                        tab.classList.add("active");
-                    }
-                });
-                renderGallery(targetCategory);
             }
 
             tabs.forEach(tab => {
@@ -262,11 +251,12 @@
                 });
             });
 
+            // Auto-load Designs tab on start
             renderGallery("designs");
         });
 
         // ==========================================================================
-        // 3. CINEMATIC VIDEO POPUP SYSTEM CONTROLLER
+        // 3. VIDEO MODAL POPUP CONTROLLER
         // ==========================================================================
         function watchHere(e, videoUrl) {
             if(e) e.preventDefault(); 
@@ -286,8 +276,8 @@
                 
                 if(iframe && popup) {
                     iframe.src = embedUrl;
-                    popup.classList.add("modal-active");
-                    document.body.style.overflow = "hidden"; 
+                    popup.style.display = "flex"; // Open the overlay window
+                    document.body.style.overflow = "hidden"; // Disables background scrolling
                 }
             }
         }
@@ -296,9 +286,9 @@
             const iframe = document.getElementById("popup-iframe");
             const popup = document.getElementById("video-popup");
             if(popup && iframe) {
-                popup.classList.remove("modal-active");
-                iframe.src = ""; 
-                document.body.style.overflow = "auto"; 
+                popup.style.display = "none"; // Hide the overlay window
+                iframe.src = ""; // Kill video playback audio immediately
+                document.body.style.overflow = "auto"; // Re-enable site scrolling
             }
         }
 
@@ -311,3 +301,5 @@
             }
         });
     </script>
+</body>
+</html>
