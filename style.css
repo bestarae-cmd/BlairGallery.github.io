@@ -30,10 +30,10 @@ body {
     position: relative;
 }
 
-/* Base section rule ensures background videos stay locked to the viewport */
+/* Restored exactly to your original snapped fullscreen snapshot rule */
 .page-section {
     width: 100vw;
-    height: 100vh;   
+    height: 100vh;
     position: relative;
     display: flex;
     overflow: hidden;
@@ -166,14 +166,14 @@ body {
 }
 
 /* --- DETAILED GALLERY CORE DESKTOP LAYOUT --- */
-.gallery-container {
-    justify-content: center;
-    align-items: center;
-    padding: 160px 40px 140px 40px; 
-    height: auto;                     /* ONLY the gallery is allowed to expand naturally */
+/* Overriding standard section layout specifically here so it grows smoothly */
+#gallery.gallery-container {
+    height: auto !important;
     min-height: 100vh;
+    display: block; /* Allows natural document flow scrolling */
+    padding: 160px 80px 140px 80px;
     position: relative;
-    z-index: 5;                     
+    z-index: 5;
 }
 
 .gallery-content {
@@ -181,6 +181,7 @@ body {
     z-index: 20;
     width: 100%;
     max-width: 1100px;
+    margin: 0 auto; /* Centers the content container */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,4 +224,204 @@ body {
     font-size: 15px;
     font-weight: 700;
     padding: 14px 0;
-    cursor: pointer
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 1px;
+}
+
+.tab-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-btn.active {
+    background: rgba(41, 37, 76, 0.6) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.15);
+}
+
+/* Grid Framework (Force 2 columns on desktop) */
+.gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 30px;
+    width: 100%;
+}
+
+.gallery-card {
+    background: rgba(25, 29, 54, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Specific styling to ensure hidden cards don't wreck layout */
+.gallery-card[style*="display: none"] {
+    display: none !important;
+}
+
+.gallery-card:not([style*="display: none"]) {
+    display: flex !important;
+}
+
+.card-media-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.card-media-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover .card-media-wrapper img { transform: scale(1.04); }
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.5px;
+}
+
+.card-btn {
+    background: rgba(30, 35, 66, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.card-btn:hover {
+    background: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    border-color: transparent;
+}
+
+.contact-container { 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+}
+.contact-content { position: relative; z-index: 20; }
+.contact-container h2 { font-size: 60px; font-weight: 800; margin-bottom: 10px; }
+
+/* ==========================================================================
+   6. MOBILE RESPONSIVE LAYOUT (< 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background-color: rgba(11, 14, 26, 0.85) !important;
+        backdrop-filter: blur(8px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .hamburger-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 32px !important;
+        height: 20px !important;
+        z-index: 1000 !important;
+        cursor: pointer !important;
+    }
+
+    .hamburger-btn span {
+        display: block !important;
+        width: 100% !important;
+        height: 3px !important;
+        background-color: white !important;
+        border-radius: 2px !important;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease !important;
+    }
+
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg) !important; }
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0 !important; transform: scale(0) !important; }
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
+
+    .nav-menu {
+        position: fixed !important;
+        top: 0 !important; right: -100% !important; 
+        width: 75% !important; height: 100vh !important;
+        background: rgba(11, 14, 26, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        transition: right 0.4s ease !important;
+        z-index: 999 !important; 
+    }
+
+    .nav-menu a { margin: 20px 0 !important; font-size: 24px !important; }
+    .menu-checkbox:checked ~ .nav-menu { right: 0 !important; }
+
+    .welcome-container {
+        padding: 0 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important; 
+        align-items: center !important;        
+    }
+
+    .text-blur-wrapper { 
+        display: block !important;
+        max-width: 100% !important; 
+        padding: 40px 20px !important; 
+        text-align: center !important;
+        margin: 20vh auto 0 auto !important; 
+    }
+    
+    .welcome-container h1 { font-size: 46px !important; }
+    .welcome-container .subtext { font-size: 13px !important; }
+    .about-container { padding: 0 24px !important; justify-content: center !important; align-items: center !important; }
+    .about-content { text-align: center !important; max-width: 100% !important; }
+    .about-content h2 { font-size: 46px !important; }
+    .about-content p { font-size: 13px !important; }
+
+    /* MOBILE GALLERY SYSTEM OVERRIDES */
+    #gallery.gallery-container { 
+        padding: 120px 24px 60px 24px !important;
+    }
+    .gallery-title { font-size: 42px !important; }
+    .gallery-subtitle { font-size: 15px !important; margin-bottom: 24px !important; }
+    .gallery-tabs { margin-bottom: 24px !important; padding: 6px !important; }
+    .tab-btn { font-size: 13px !important; padding: 10px 0 !important; }
+    
+    .gallery-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 20px !important; 
+    }
+    .gallery-card { padding: 14px !important; }
+    .card-title { font-size: 13px !important; }
+    .card-btn { padding: 8px 12px !important; font-size: 11px !important; }
+}
