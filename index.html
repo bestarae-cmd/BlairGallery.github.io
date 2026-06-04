@@ -110,6 +110,7 @@
 
        <script>
      <script>
+   <script>
         // ==========================================================================
         // 1. ACTIVE NAV TRACKER FOR SCROLLING
         // ==========================================================================
@@ -137,7 +138,7 @@
         });
 
         // ==========================================================================
-        // 2. YOUR CREATOR GALLERY MANAGER & UNIFIED TAB SYSTEM
+        // 2. YOUR CREATOR GALLERY MANAGER & UNIFIED TAB SYSTEM (FIXED CLASSES)
         // ==========================================================================
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -185,7 +186,6 @@
             const gridContainer = document.getElementById("dynamic-gallery-grid");
             const tabs = document.querySelectorAll(".tab-btn");
 
-            // Utility function to extract clean 11-character YouTube ID
             function getYouTubeId(url) {
                 if (!url || url === "#") return null;
                 const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -193,7 +193,6 @@
                 return (match && match[2].length === 11) ? match[2] : null;
             }
 
-            // CORE RENDERING ENGINE
             window.renderGallery = function(filterTarget = "designs") {
                 if (!gridContainer) return;
                 gridContainer.innerHTML = ""; 
@@ -213,8 +212,9 @@
                         actionButtonHTML = `<span class="card-btn" style="opacity: 0.5; background: transparent; border-color: transparent;">SOFTWARE</span>`;
                     }
 
+                    // RESTORED YOUR ORIGINAL CSS CLASS NAMES: gallery-item-target & card-media-wrapper
                     const cardHTML = `
-                        <div class="gallery-card" style="opacity: 0; transform: scale(0.95);">
+                        <div class="gallery-item-target gallery-card" style="opacity: 0; transform: scale(0.95); display: flex;">
                             <div class="card-media-wrapper">
                                 ${videoId 
                                     ? `<img src="${thumbnailUrl}" alt="${item.title}">`
@@ -231,7 +231,6 @@
                     gridContainer.insertAdjacentHTML("beforeend", cardHTML);
                 });
 
-                // Staggered layout cascading animation load intro
                 setTimeout(() => {
                     const dynamicCards = gridContainer.querySelectorAll(".gallery-card");
                     dynamicCards.forEach((card, index) => {
@@ -244,7 +243,7 @@
                 }, 50);
             }
 
-            // This fallback function ensures tabs navigate correctly if tied to "switchTab" values in HTML
+            // Fallback connecting your HTML tab element triggers directly
             window.switchTab = function(targetCategory) {
                 tabs.forEach(tab => {
                     tab.classList.remove("active");
@@ -256,22 +255,20 @@
                 renderGallery(targetCategory);
             }
 
-            // Bind click listeners natively to tabs using data-target attributes
             tabs.forEach(tab => {
-                tab.addEventListener("click", () => {
+                tab.addEventListener("click", function() {
                     tabs.forEach(t => t.classList.remove("active"));
-                    tab.classList.add("active");
-                    const target = tab.getAttribute("data-target") || "designs";
+                    this.classList.add("active");
+                    const target = this.getAttribute("data-target") || "designs";
                     renderGallery(target);
                 });
             });
 
-            // Initial load trigger sequence
             renderGallery("designs");
         });
 
         // ==========================================================================
-        // 3. CINEMATIC VIDEO POPUP SYSTEM CONTROLLER (FIXED EXTRACTOR & MOUNT)
+        // 3. CINEMATIC VIDEO POPUP SYSTEM CONTROLLER
         // ==========================================================================
         function watchHere(e, videoUrl) {
             if(e) e.preventDefault(); 
@@ -294,15 +291,12 @@
                     popup.classList.add("modal-active");
                     document.body.style.overflow = "hidden"; 
                 }
-            } else {
-                console.error("Could not extract video ID from:", videoUrl);
             }
         }
 
         function closeVideo() {
             const iframe = document.getElementById("popup-iframe");
             const popup = document.getElementById("video-popup");
-            
             if(popup && iframe) {
                 popup.classList.remove("modal-active");
                 iframe.src = ""; 
@@ -310,7 +304,6 @@
             }
         }
 
-        // Setup background dim space click listener to close out
         document.addEventListener("DOMContentLoaded", () => {
             const popup = document.getElementById("video-popup");
             if (popup) {
@@ -320,15 +313,3 @@
             }
         });
     </script>
-
-    <div id="video-popup" class="video-modal-overlay">
-        <div class="modal-box">
-            <button class="modal-close-btn" onclick="closeVideo()">&times;</button>
-            <div class="modal-video-wrapper">
-                <iframe id="popup-iframe" src="" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
